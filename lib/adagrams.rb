@@ -1,5 +1,5 @@
 def draw_letters
-  letter_pools = []
+  letter_pool = []
   pool = {A:9,
           B:2,
           C:2,
