@@ -28,9 +28,9 @@ def draw_letters
           Z:1}
   pool.each do |letter, num|
     num.times do
-      letter_pools << letter.to_s
+      letter_pool << letter.to_s
     end
   end
-  return letter_pools.sample(10)
+  return letter_pool.sample(10)
 end
 
