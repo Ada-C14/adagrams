@@ -26,4 +26,33 @@ def draw_letters()
   return hand
 end
 
-puts "#{draw_letters()}"
+def uses_available_letters?(input, letters_in_hand)
+  copy_lih = letters_in_hand.dup
+  input.each_char do |letter|
+    if copy_lih.include?(letter)
+      copy_lih.delete_at(copy_lih.find_index(letter))
+    else
+      return false
+    end
+  end
+  return true
+end
+
+def score_word(word)
+  score_chart = {
+      "A" => 1, "B" => 3, "C" => 3, "D" => 2, "E" => 1, "F" => 4, "G" => 2,
+      "H" => 4, "I" => 1, "J" => 8, "K" => 5, "L" => 1, "M" => 3, "N" => 1,
+      "O" => 1, "P" => 3, "Q" => 10, "R" => 1, "S" => 1, "T" => 1, "U" => 1,
+      "V" => 4, "W" => 4, "X" => 8, "Y" => 4, "Z" => 10
+  }
+
+  score = 0
+
+  word.upcase.each_char do |letter|
+    score += score_chart[letter]
+  end
+
+  score += 8 if word.length >= 7
+
+  return score
+end
