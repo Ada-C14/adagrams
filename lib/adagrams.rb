@@ -52,3 +52,30 @@ def uses_available_letters?(input, letters_in_hand)
   end
   return true
 end
+
+def score_word(word)
+  score = 0
+  word.upcase.each_char do |charater|
+    case charater
+    when "A", "E", "I", "O", "U", "L", "N", "R", "S", "T"
+      score += 1
+    when "D", "G"
+      score += 2
+    when "B", "C", "M", "P"
+      score += 3
+    when "F", "H", "V", "W", "Y"
+      score += 4
+    when "K"
+      score += 5
+    when "J", "X"
+      score += 8
+    when "Q", "Z"
+      score += 10
+    end
+  end
+
+  if word.length >= 7
+    score += 8
+  end
+  return score
+end
