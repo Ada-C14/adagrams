@@ -43,9 +43,9 @@ def count_letters(letters_array)
 
   letters_array.each do |letter|
     if letter_count.include? letter
-      letter_count[:letter] += 1
+      letter_count[letter] += 1
     else
-      letter_count[:letter] = 1
+      letter_count[letter] = 1
     end
   end
 
@@ -58,20 +58,12 @@ def uses_available_letters?(input, letters_in_hand)
   hand_count = count_letters(letters_in_hand)  # ['A', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
   input_count = count_letters(input)  # { 'A' => 3 }
 
-  #check if each letter in input is in hand
-  input.each do |letter|
-    if !letters_in_hand.include?(letter) || count > hand_count[letter]
-      return false
-    end
-  end
-
-  #check if letter count in input is <= in hand
+  #check if each letter in input is in hand or if letter count in input is <= in hand
   input_count.each do |letter, count|
-    if count > hand_count[letter]
+    if !hand_count.key?(letter) || count > hand_count[letter]
       return false
     end
   end
-
 
   return true
 end
