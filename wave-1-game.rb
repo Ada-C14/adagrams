@@ -4,6 +4,7 @@ ALL_LETTERS = {
     A: 9,
     B: 2,
     C: 2,
+    D: 4,
     E: 12,
     F: 2,
     G: 3,

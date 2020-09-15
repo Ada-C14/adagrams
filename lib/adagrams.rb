@@ -2,6 +2,7 @@ ALL_LETTERS = {
     A: 9,
     B: 2,
     C: 2,
+    D: 4,
     E: 12,
     F: 2,
     G: 3,
@@ -24,6 +25,35 @@ ALL_LETTERS = {
     X: 1,
     Y: 2,
     Z: 1
+}
+
+SCORE_CHART = {
+    A: 1,
+    B: 3,
+    C: 3,
+    D: 2,
+    E: 1,
+    F: 4,
+    G: 2,
+    H: 4,
+    I: 1,
+    J: 8,
+    K: 5,
+    L: 1,
+    M: 3,
+    N: 1,
+    O: 1,
+    P: 3,
+    Q: 10,
+    R: 1,
+    S: 1,
+    T: 1,
+    U: 1,
+    V: 4,
+    W: 4,
+    X: 8,
+    Y: 4,
+    Z: 10
 }
 
 def draw_letters
@@ -52,11 +82,10 @@ def count_letters(letters_array)
   return letter_count
 end
 
-
 def uses_available_letters?(input, letters_in_hand)
   input = input.split('')
-  hand_count = count_letters(letters_in_hand)  # ['A', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
-  input_count = count_letters(input)  # { 'A' => 3 }
+  hand_count = count_letters(letters_in_hand)
+  input_count = count_letters(input)
 
   #check if each letter in input is in hand or if letter count in input is <= in hand
   input_count.each do |letter, count|
@@ -68,8 +97,30 @@ def uses_available_letters?(input, letters_in_hand)
   return true
 end
 
+def score_word(word)
+  score = 0
+
+  if word.length >= 7 && word.length <= 10
+    score += 8
+  end
+
+  letters = word.upcase.split("").map { |letter| letter.to_sym }
+
+  letters.each do |letter|
+    case letter
+    when letter
+      score += SCORE_CHART[letter]
+    end
+  end
+
+  return score
+end
+
+p score_word('hello')
+
 #MAIN PROGRAM#################
 hand = draw_letters
 print "Here are your letters #{hand}, input an anagram: "
 anagram = gets.chomp.upcase
 p uses_available_letters?(anagram, hand)
+
