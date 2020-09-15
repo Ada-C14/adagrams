@@ -62,16 +62,4 @@ def run_game
   display_goodbye_message
 end
 
-def uses_available_letters?(input, letters_in_hand)
-  in_hand? = nil
-  input = input.split('')
-  input.each do |letter|
-    if !letters_in_hand.includes?(letter)
-      return in_hand? = false
-    end
-  end
-  return in_hand? = true
-end
-
-
 run_game

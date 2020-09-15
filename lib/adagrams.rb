@@ -117,11 +117,37 @@ def score_word(word)
   return score
 end
 
-p score_word('hello')
+def highest_score_from(words)
+  highest_score = { word: "", score: 0 }
+  words.each do |word|
+    word_value = score_word(word)
+    if word_value > highest_score[:score]
+      highest_score[:score] = word_value
+      highest_score[:word] = word
+    elsif (word_value == highest_score[:score]) && (highest_score[:word].length != 10)
+      if (word.length == 10) || (word.length < highest_score[:word].length)
+        highest_score[:score] = word_value
+        highest_score[:word] = word
+      end
+    end
+  end
+
+  return highest_score
+end
 
 #MAIN PROGRAM#################
-hand = draw_letters
-print "Here are your letters #{hand}, input an anagram: "
-anagram = gets.chomp.upcase
-p uses_available_letters?(anagram, hand)
+# hand = draw_letters
+# print "Here are your letters #{hand}, input an anagram: "
+# anagram = gets.chomp.upcase
+words = ["AAAAA", "EEEEE"]
+# while anagram != 'Q'
+#   if uses_available_letters?(anagram, hand)
+#     words << anagram
+#     puts "Please input another anagram, or enter 'q' to proceed: "
+#   else
+#     puts "Invalid anagram. Please try again, or enter 'q' to proceed: "
+#   end
+#   anagram = gets.chomp.upcase
+# end
 
+puts "The highest scoring word is: #{highest_score_from(words)}"
