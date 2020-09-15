@@ -139,8 +139,8 @@ end
 
 def is_english_dict?(input)
   input = input.downcase
-  CSV.read("../assets/dictionary-english.csv", headers: true).each do |word|
-    word["Word"] == input ? (return true) : next
+  CSV.read("../assets/dictionary-english.csv").flatten.each do |word|
+    word == input ? (return true) : next
   end
 
   return false
@@ -163,4 +163,4 @@ end
 
 # puts "The highest scoring word is: #{highest_score_from(words)}"
 #
-p is_english_dict?('aaa')
+p is_english_dict?('abdomen')
