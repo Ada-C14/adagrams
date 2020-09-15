@@ -38,9 +38,20 @@ distribution = {
 
   letters = []
 
-  distribution_array.shuffle!
-  letters << distribution_array.first(10)
-  letters.flatten!
+  # distribution_array.shuffle!
+  # letters << distribution_array.first(10)
+  # letters.flatten!
+
+p distribution_array.length
+
+  10.times do
+    index = rand(0..distribution_array.length)
+    letters << distribution_array[index]
+    distribution_array.delete_at(index)
+  end
+
+p distribution_array.length
+
 
   return letters
 end
