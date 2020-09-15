@@ -1,3 +1,5 @@
+require 'csv'
+
 ALL_LETTERS = {
     A: 9,
     B: 2,
@@ -135,11 +137,20 @@ def highest_score_from(words)
   return highest_score
 end
 
+def is_english_dict?(input)
+  input = input.downcase
+  CSV.read("../assets/dictionary-english.csv", headers: true).each do |word|
+    word["Word"] == input ? (return true) : next
+  end
+
+  return false
+end
+
 #MAIN PROGRAM#################
 # hand = draw_letters
 # print "Here are your letters #{hand}, input an anagram: "
 # anagram = gets.chomp.upcase
-words = ["AAAAA", "EEEEE"]
+# words = ["AAAAA", "EEEEE"]
 # while anagram != 'Q'
 #   if uses_available_letters?(anagram, hand)
 #     words << anagram
@@ -150,4 +161,6 @@ words = ["AAAAA", "EEEEE"]
 #   anagram = gets.chomp.upcase
 # end
 
-puts "The highest scoring word is: #{highest_score_from(words)}"
+# puts "The highest scoring word is: #{highest_score_from(words)}"
+#
+p is_english_dict?('aaa')
