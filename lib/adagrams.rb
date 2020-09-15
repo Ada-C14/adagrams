@@ -34,21 +34,19 @@ def draw_letters
   return letter_pool.sample(10)
 end
 
-# input = ["a","d", "a"]
-# letters_in_hand = [abcdefgh]
 def uses_available_letters?(input, letters_in_hand)
   result = []
   input_arr = input.split("")
-  temp_pool = letters_in_hand
-  input_arr.map do |letter|
+  temp_pool = letters_in_hand.map do |letter|
+    letter
+  end
+  input_arr.each do |letter|
     if temp_pool.include?(letter)
       temp_pool.slice!(temp_pool.index(letter))
       result << true
     else
       result << false
     end
-    print temp_pool
-
   end
   if result.include?(false)
     return false
@@ -57,10 +55,3 @@ def uses_available_letters?(input, letters_in_hand)
   end
 end
 
-# begin
-#   temp_pool.slice!(letters_in_hand.index(letter))
-# rescue TypeError
-#   return false
-# end
-#
-puts uses_available_letters?("aba", ["a", "b", "c", "e", "f", "g"])
