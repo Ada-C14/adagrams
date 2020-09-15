@@ -32,10 +32,56 @@ def draw_letters()
   letters.each do |letter, quantity|
     pool_of_letters.concat(Array.new(quantity, letter))
   end
-  puts"#{pool_of_letters}"
 
-  selected_letters = pool_of_letters.sample(10)
-  return selected_letters
+
+  letters_in_hand = pool_of_letters.sample(10)
+  return letters_in_hand
 end
 
-puts "#{draw_letters()}"
+p letters_in_hand = draw_letters()
+
+
+def uses_available_letters?(input, letters_in_hand)
+
+
+
+  letters_in_hand_hash = Hash.new(0)
+
+  letters_in_hand.each do |letter|
+    letters_in_hand_hash[letter] += 1
+  end
+
+  input_array = []
+  input_array = input.upcase.split(//)
+  input_hash = Hash.new(0)
+
+  input_array.each do |letter|
+    count_of_letter = input_array.count(letter)
+    input_hash[letter] = count_of_letter
+  end
+
+
+
+# Returns false if there is a letter in input that is not present in the letters_in_hand
+  input_array.each do |letter|
+    if !letters_in_hand_hash.has_key?(letter)
+      return false
+    end
+  end
+
+
+  input_hash.each do |letter, count|
+    count_of_letter_in_input = input_hash[letter]
+    count_of_letter_in_hand = letters_in_hand_hash[letter]
+
+    if  count_of_letter_in_input > count_of_letter_in_hand
+      return false
+    end
+  end
+
+  return false if input.length == 0
+
+  return true
+end
+
+p uses_available_letters?("hi",["A", "E", "O", "R", "G", "S", "E", "E", "J", "T"])
