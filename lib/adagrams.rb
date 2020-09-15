@@ -1,4 +1,7 @@
-distribution = {A: 9,
+
+def draw_letters
+distribution = {
+                A: 9,
                 B: 2,
                 C: 2,
                 D: 4,
@@ -24,9 +27,8 @@ distribution = {A: 9,
                 X: 1,
                 Y: 2,
                 Z: 1,
-}
+                }
 
-def draw_letters(distribution)
   distribution_array = []
   distribution.each do |letter, number|
     number.times do
@@ -43,18 +45,8 @@ def draw_letters(distribution)
   return letters
 end
 
-puts draw_letters(distribution)
+puts draw_letters
 
-# array = []
-# until array.length == 10
-#   rand_index = rand(0..(distribution_array.length - 1))
-#   array << letter[rand_index]
-#   distribution_array.delete(letter[rand_index])
-# end
-#
-# # letters = distribution_array.sample(10)
-#
-# p array
 
 
 
