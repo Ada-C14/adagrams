@@ -137,9 +137,13 @@ def highest_score_from(words)
   return highest_score
 end
 
-def is_english_dict?(input)
+def is_in_english_dict?(input)
+  if input.nil?
+    raise ArgumentError, "Input can't be nil."
+  end
+
   input = input.downcase
-  CSV.read("../assets/dictionary-english.csv").flatten.each do |word|
+  CSV.read("assets/dictionary-english.csv").flatten.each do |word|
     word == input ? (return true) : next
   end
 
@@ -163,4 +167,4 @@ end
 
 # puts "The highest scoring word is: #{highest_score_from(words)}"
 #
-p is_english_dict?('abdomen')
+# p is_in_english_dict?('abdomen')
