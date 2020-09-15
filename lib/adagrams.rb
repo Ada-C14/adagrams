@@ -38,16 +38,42 @@ def draw_letters
   return all_letters.shuffle.first(10)
 end
 
+def count_letters(letters_array)
+  letter_count = {}
 
-def uses_available_letters?(input, letters_in_hand)
-  in_hand = nil
-  input = input.split('')
-  input.each do |letter|
-    if !letters_in_hand.include?(letter)
-      return in_hand = false
+  letters_array.each do |letter|
+    if letter_count.include? letter
+      letter_count[:letter] += 1
+    else
+      letter_count[:letter] = 1
     end
   end
-  return in_hand = true
+
+  return letter_count
+end
+
+
+def uses_available_letters?(input, letters_in_hand)
+  input = input.split('')
+  hand_count = count_letters(letters_in_hand)  # ['A', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
+  input_count = count_letters(input)  # { 'A' => 3 }
+
+  #check if each letter in input is in hand
+  input.each do |letter|
+    if !letters_in_hand.include?(letter) || count > hand_count[letter]
+      return false
+    end
+  end
+
+  #check if letter count in input is <= in hand
+  input_count.each do |letter, count|
+    if count > hand_count[letter]
+      return false
+    end
+  end
+
+
+  return true
 end
 
 #MAIN PROGRAM#################

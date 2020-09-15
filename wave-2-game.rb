@@ -74,6 +74,4 @@ def uses_available_letters?(input, letters_in_hand)
 end
 
 
-
-
 run_game
