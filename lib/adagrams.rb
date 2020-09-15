@@ -40,3 +40,15 @@ def draw_letters
   random_letter = letter_pool.shuffle.take(10)
   return random_letter
 end
+
+def uses_available_letters?(input, letters_in_hand)
+  letters_in_hand_copy = letters_in_hand.clone
+  input.each_char do |letter|
+    if letters_in_hand_copy.include?(letter)
+      letters_in_hand_copy.delete(letter)
+    else
+      return false
+    end
+  end
+  return true
+end
