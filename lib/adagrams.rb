@@ -55,8 +55,8 @@ end
 
 def score_word(word)
   score = 0
-  word.upcase.each_char do |charater|
-    case charater
+  word.upcase.each_char do |character|
+    case character
     when "A", "E", "I", "O", "U", "L", "N", "R", "S", "T"
       score += 1
     when "D", "G"
@@ -77,5 +77,33 @@ def score_word(word)
   if word.length >= 7
     score += 8
   end
+
   return score
+end
+
+def highest_score_from(words)
+  winner = {
+      word: "",
+      score: 0
+  }
+
+  high_score = words.max_by { |word| score_word(word) }
+  high_words = words.select { |word| score_word(word) == score_word(high_score) }
+  # high_words.sort_by! { |word| word.length }
+
+  if high_words.length == 1
+    winner[:word] = high_words[0]
+    winner[:score] = score_word(high_words[0])
+  elsif high_words.any? { |word| word.length == 10 }
+    ten_letter_words = high_words.select { |word| word if word.length == 10 }
+    winner[:word] = ten_letter_words[0]
+    winner[:score] = score_word(ten_letter_words[0])
+  else
+    shortest_word_length = (high_words.min_by { |word| word.length }).length
+    short_words_array = high_words.select { |word| word.length == shortest_word_length }
+    winner[:word] = short_words_array[0]
+    winner[:score] = score_word(short_words_array[0])
+  end
+
+  return winner
 end
