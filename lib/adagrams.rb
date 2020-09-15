@@ -37,3 +37,21 @@ def draw_letters
 
   return all_letters.shuffle.first(10)
 end
+
+
+def uses_available_letters?(input, letters_in_hand)
+  in_hand = nil
+  input = input.split('')
+  input.each do |letter|
+    if !letters_in_hand.include?(letter)
+      return in_hand = false
+    end
+  end
+  return in_hand = true
+end
+
+#MAIN PROGRAM#################
+hand = draw_letters
+print "Here are your letters #{hand}, input an anagram: "
+anagram = gets.chomp.upcase
+p uses_available_letters?(anagram, hand)
