@@ -107,9 +107,10 @@ def score_word(word)
   letters = word.upcase.split("").map { |letter| letter.to_sym }
 
   letters.each do |letter|
-    case letter
-    when letter
+    if letter
       score += SCORE_CHART[letter]
+    else
+      return
     end
   end
 
