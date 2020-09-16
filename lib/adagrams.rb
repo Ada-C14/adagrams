@@ -93,9 +93,7 @@ end
 def score_word(word)
   score = 0
 
-  if (7..10).include? word.length
-    score += 8
-  end
+  score += 8 if (7..10).include? word.length
 
   letters = word.upcase.split("").map { |letter| letter.to_sym }
 
