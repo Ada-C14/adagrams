@@ -56,7 +56,6 @@ def make_count_hash(array)
   return hash
 end
 
-
 letters = draw_letters
 letter_hash = make_count_hash(letters)
 
@@ -78,29 +77,49 @@ def uses_available_letters?(word_hash, letter_hash)
   return true
 end
 
+  until true
+    puts "invalid entry. would you like to try again?"
+
+# until true
+#   score = score
+#   puts "Your word was accepted!"
+#   puts "Would you like to enter another word? Enter 'yes' to continue"
+#   input = gets.chomp
+# else
+#   score = 0
+#   puts "Your word uses letters not included in your hand."
+#   puts "Would you like to try again? enter 'yes' to continue"
+#   input = gets.chomp
+#     if input != 'yes'
+#       break
+#     end
+# end
+
+
 puts uses_available_letters?(word_hash, letter_hash)
 
-# letters = draw_letters
-# hand_hash = hand_letter_count_hash(letters)
-# word_hash = word_letter_count_hash(word)
-#
+def score_word(word)
+values = {
+          "A" => 1, "E" => 1, "I" => 1, "O" => 1, "U" => 1, "L" => 1, "N" => 1, "R" => 1, "S" => 1, "T" => 1,
+          "D" => 2, "G" => 2,
+          "B" => 3, "C" => 3, "M" => 3, "P" => 3,
+          "F" => 4, "H" => 4, "V" => 4, "W" => 4, "Y" => 4,
+          "K" => 5,
+          "J" => 8, "X" => 8,
+          "Q" => 10, "Z" => 10
+          }
 
+  score = 0
+  values.each do |letter, value|
+    score += (word[letter] * values[letter])
+  end
 
-# def uses_available_letters?(word, letters_in_hand)
-#   letters_in_hand.each_with_index do |letter_in_hand, i|
-#     if word.upcase.include?(letter_in_hand)
-#       letters_in_hand.delete_at(i)
-#     end
-#   end
-#   return letters_in_hand.length == 10 - word.length
-# end
-#
+  if word.length >= 7
+    score += 8
+  end
 
-# letters_in_hand = draw_letters
+  return score
+end
 
-# puts "here are your available letters!"
-# p letters_in_hand
-#
-# puts "try a word"
-#
-# puts uses_available_letters?(word, letters_in_hand)
+puts score_word(word_hash)
+
