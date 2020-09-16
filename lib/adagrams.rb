@@ -93,7 +93,9 @@ end
 def score_word(word)
   score = 0
 
-  score += 8 if (7..10).include? word.length
+  if (7..10).include? word.length
+    score += 8
+  end
 
   letters = word.upcase.split("").map { |letter| letter.to_sym }
 
@@ -106,15 +108,14 @@ end
 
 def highest_score_from(words)
   highest_score = { word: "", score: 0 }
+
   words.each do |word|
     word_value = score_word(word)
     if word_value > highest_score[:score]
-      highest_score[:score] = word_value
-      highest_score[:word] = word
+      highest_score = { word: word, score: word_value }
     elsif (word_value == highest_score[:score]) && (highest_score[:word].length != 10)
       if (word.length == 10) || (word.length < highest_score[:word].length)
-        highest_score[:score] = word_value
-        highest_score[:word] = word
+        highest_score = { word: word, score: word_value }
       end
     end
   end
