@@ -1,3 +1,5 @@
+require "csv"
+
 POOL = {
     "a": 9,
     "b": 2,
@@ -109,4 +111,24 @@ def highest_score_from(words)
   return winner if winner != nil
 
   return find_winner(smallest_length, winning_hash, max_score)
+end
+
+def is_in_english_dict?(input)
+
+  dict = CSV.read("../assets/dictionary-english.csv").flatten(1)
+
+  low = 0
+  high = dict.length - 1
+
+  while low <= high
+    mid = (low + high) / 2
+    if dict[mid] == input
+      return true
+    elsif dict[mid] < input
+      low = mid + 1
+    else
+      high = mid - 1
+    end
+  end
+  return false
 end
