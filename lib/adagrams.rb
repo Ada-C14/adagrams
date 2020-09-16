@@ -38,45 +38,44 @@ def draw_letters
 end
 
 def uses_available_letters?(input, letters_in_hand)
-  input.upcase!
+  hand_copy = letters_in_hand.clone
   input_array = input.chars
-  is_char_valid = true
   input_array.each do |char|
-    index = letters_in_hand.index(char)
-    if !index || !letters_in_hand.delete_at(index)
-      is_char_valid = false
+    index = hand_copy.index(char)
+    if !index || !hand_copy.delete_at(index)
+      return false
     end
   end
-  return is_char_valid
+  return true
 end
 
-#### notes for next session
-# We can just return true or false, no need to assign to variable.
-# May need to clone letters_in_hand to not destructively edit it.
 
-
-
-# draw_letters = ["N", "E", "O", "K", "Y", "I", "O", "V", "N", "I"]
-# p draw_letters
-# input = "q"
-# p input
-#
-# p user_available_letters?(input, draw_letters)
-
-
-
-
-# def uses_available_letters?(input, letters_in_hand)
-#   input.upcase!
-#   input_array = input.chars
-#   is_char_valid = false
-#   input_array.each do |char|
-#     index = letters_in_hand.index(char)
-#     if index && letters_in_hand.delete_at(index)
-#       is_char_valid = true
-#     end
-#   end
-#   return is_char_valid
-# end
+# 3
+def score_word(word)
+  letter_array = word.split(//)
+  word_score = 0
+  letter_array.each do |each_letter|
+    case each_letter
+    when "A", "E", "I", "O", "U", "L", "N", "R", "S", "T"
+      word_score += 1
+    when "D","G"
+      word_score += 2
+    when "B","C","M","P"
+      word_score += 3
+    when "F","H","V","W","Y"
+      word_score += 4
+    when "K"
+      word_score += 5
+    when "J", "X"
+      word_score += 8
+    when "Q","Z"
+      word_score += 10
+    end
+  end
+  if letter_array.length > 6
+    word_score += 8
+    end
+    return  word_score
+end
 
 
