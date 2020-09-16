@@ -12,3 +12,22 @@ end
 
 
 
+def uses_available_letters?(input, letters_in_hand)
+
+  letters_arr = input.upcase.split("")
+  true_false_arr = []
+  copy_hand = letters_in_hand.clone
+
+  letters_arr.each do |letter|
+   true_false_arr << copy_hand.include?(letter)
+   copy_hand.delete(letter)
+  end
+
+  if true_false_arr.all?(true)
+    return true
+  else
+    return false
+  end
+end
+
+
