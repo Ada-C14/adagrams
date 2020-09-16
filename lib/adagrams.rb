@@ -56,3 +56,25 @@ def score_word(word)
 
   return score
 end
+
+def highest_score_from(words)
+  max_score = 0
+  highest_word = ""
+
+  words.each do |word|
+    if score_word(word) > max_score
+      max_score = score_word(word)
+      highest_word = word
+    elsif score_word(word) == max_score && word.length == highest_word.length
+      next
+    elsif score_word(word) == max_score && word.length == 10
+      max_score = score_word(word)
+      highest_word = word
+    elsif score_word(word) == max_score && word.length < highest_word.length && highest_word.length != 10
+      max_score = score_word(word)
+      highest_word = word
+    end
+  end
+  score_hash = { word: highest_word, score: max_score}
+  return score_hash
+end
