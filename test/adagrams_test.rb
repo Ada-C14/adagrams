@@ -198,10 +198,9 @@ describe 'Adagrams' do
       expect(is_in_english_dict?(word)).must_equal true
     end
 
-    it 'returns false for nil value' do
-      word = nil
-
-      expect{ is_in_english_dict?(word) }.must_raise ArgumentError
+    it 'returns true for nil and empty inputs' do
+      expect(is_in_english_dict?(nil)).must_be_nil
+      expect(is_in_english_dict?("")).must_be_nil
     end
   end
 end
