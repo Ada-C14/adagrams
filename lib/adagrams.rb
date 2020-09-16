@@ -66,6 +66,9 @@ def score_word(word)
                  %w[Q Z] => 10}
   word_arr = word.split("")
   points = 0
+  if word.length >= 7 && word.length <= 10
+    points = 8
+  end
   word_arr.each do |letter|
     score_chart.each do |key, value|
       if key.include?(letter)
@@ -74,7 +77,9 @@ def score_word(word)
     end
   end
 
-  print points
+  # print points
+  return points
 end
-word = "ada"
-print score_word(word)
+word = "abcdefghi"
+
+score_word(word)
