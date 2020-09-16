@@ -43,8 +43,6 @@ p letters_in_hand = draw_letters()
 
 def uses_available_letters?(input, letters_in_hand)
 
-
-
   letters_in_hand_hash = Hash.new(0)
 
   letters_in_hand.each do |letter|
@@ -85,3 +83,90 @@ def uses_available_letters?(input, letters_in_hand)
 end
 
 p uses_available_letters?("hi",["A", "E", "O", "R", "G", "S", "E", "E", "J", "T"])
+
+#Wave 3
+# the cost of the word
+def score_word(word)
+  letters_cost = {
+      "A" => 1,
+      "E" => 1,
+      "I" => 1,
+      "O" => 1,
+      "U" => 1,
+      "L" => 1,
+      "N" => 1,
+      "R" => 1,
+      "S" => 1,
+      "T" => 1,
+      "D" => 2,
+      "G" => 2,
+      "B" => 3,
+      "C" => 3,
+      "M" => 3,
+      "P" => 3,
+      "F" => 4,
+      "H" => 4,
+      "V" => 4,
+      "W" => 4,
+      "Y" => 4,
+      "K" => 5,
+      "J" => 8,
+      "X" => 8,
+      "Q" => 10,
+      "Z" => 10,
+      }
+
+
+  letters = word.upcase.split(//) # NoMethodError: undefined method `upcase' for ["a"]:Array when it was word.split(//).upcase
+  score = 0
+
+  letters.each do |letter|
+    score += letters_cost[letter]
+  end
+
+  # if letters.length <= 10 && letters.length >= 7 Can't be 10 AND 7
+  if letters.length < 11 && letters.length > 6
+    score += 8
+  end
+  return score
+end
+
+# Wave 4
+# Find highest scoring word
+def highest_score_from(words)
+
+  word_score_hash = Hash.new(0)
+
+  words.each do |word|
+    score = score_word(word) # return a score
+    word_score_hash[word] = score
+  end
+
+  sorted_word_score_array = word_score_hash.sort_by { |word, score| score }
+
+  highest_score = sorted_word_score_array[-1][-1]
+
+  sorted_word_score_hash = sorted_word_score_array.to_h
+
+  tie_hash = {}
+  sorted_word_score_hash.each do |word, score|
+    if highest_score == score
+      tie_hash[word] = score
+    end
+  end
+
+  #tie_hash {word4: 4, word5: 4}
+  winner = {}
+  min_word = ''
+  if tie_hash.length > 1
+    tie_hash.each do |word, score|
+      if word < min_word
+        min_word = word
+        winner = { min_word => score }
+      end
+    end
+  end
+
+  return winner
+end
+
