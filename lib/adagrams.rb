@@ -70,11 +70,7 @@ def count_letters(letters_array)
   letter_count = {}
 
   letters_array.each do |letter|
-    if letter_count.include? letter
-      letter_count[letter] += 1
-    else
-      letter_count[letter] = 1
-    end
+    letter_count.include? letter ? letter_count[letter] += 1 : letter_count[letter] = 1
   end
 
   return letter_count
