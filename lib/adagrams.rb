@@ -59,15 +59,11 @@ SCORE_CHART = {
 }
 
 def draw_letters
-  all_letters = []
-
-  ALL_LETTERS.each do |keys, values|
-    values.times do
-      all_letters << keys.to_s
-    end
+  all_letters = ALL_LETTERS.map do |keys, values|
+    [keys.to_s] * values    #follow-up, why do square brackets work??
   end
 
-  return all_letters.shuffle.first(10)
+  return all_letters.flatten.shuffle.first(10)
 end
 
 def count_letters(letters_array)
@@ -138,16 +134,17 @@ def highest_score_from(words)
 end
 
 def is_in_english_dict?(input)
-  if input.nil?
-    raise ArgumentError, "Input can't be nil."
-  end
+  if input.nil? || input.empty?
+    return nil
+  else
+    input = input.downcase
 
-  input = input.downcase
-  CSV.read("assets/dictionary-english.csv").flatten.each do |word|
-    word == input ? (return true) : next
-  end
+    CSV.read("assets/dictionary-english.csv").flatten.each do |word|
+      word == input ? (return true) : next
+    end
 
-  return false
+    return false
+  end
 end
 
 #MAIN PROGRAM#################
