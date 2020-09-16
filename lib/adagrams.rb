@@ -41,11 +41,11 @@ def uses_available_letters?(input, letters_in_hand)
 
   return false if input.length > new_letters.length
 
-  input.each_char.with_index do |letter, index|
+  input.each_char do |letter|
     unless new_letters.include?(letter)
       return false
     end
-    new_letters[index] = nil
+    new_letters.slice!(new_letters.index(letter))
   end
   return true
 end
@@ -132,5 +132,3 @@ def is_in_english_dict?(input)
   end
   return false
 end
-
-# puts is_in_english_dict?("no")
