@@ -115,7 +115,7 @@ end
 
 def is_in_english_dict?(input)
 
-  dict = CSV.read("../assets/dictionary-english.csv").flatten(1)
+  dict = CSV.read("../assets/dictionary-english.csv").flatten(1).sort
 
   low = 0
   high = dict.length - 1
@@ -132,3 +132,5 @@ def is_in_english_dict?(input)
   end
   return false
 end
+
+# puts is_in_english_dict?("no")
