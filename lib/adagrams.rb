@@ -70,16 +70,15 @@ def count_letters(letters_array)
   letter_count = {}
 
   letters_array.each do |letter|
-    letter_count.include? letter ? letter_count[letter] += 1 : letter_count[letter] = 1
+    (letter_count.include? letter) ? letter_count[letter] += 1 : letter_count[letter] = 1
   end
 
   return letter_count
 end
 
 def uses_available_letters?(input, letters_in_hand)
-  input = input.split('')
   hand_count = count_letters(letters_in_hand)
-  input_count = count_letters(input)
+  input_count = count_letters(input.split(''))
 
   #check if each letter in input is in hand or if letter count in input is <= in hand
   input_count.each do |letter, count|
@@ -94,18 +93,14 @@ end
 def score_word(word)
   score = 0
 
-  if word.length >= 7 && word.length <= 10
+  if (7..10).include? word.length
     score += 8
   end
 
   letters = word.upcase.split("").map { |letter| letter.to_sym }
 
   letters.each do |letter|
-    if letter
-      score += SCORE_CHART[letter]
-    else
-      return
-    end
+    SCORE_CHART.include?(letter) ? score += SCORE_CHART[letter] : next
   end
 
   return score
