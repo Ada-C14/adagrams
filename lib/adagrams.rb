@@ -15,3 +15,29 @@ def draw_letters
 
 end
 
+
+def uses_available_letters?(input, letters_in_hand)
+  counter = 0
+  counts = Hash.new(0)
+  letters_in_hand.each do |letter|
+    counts[letter] += 1
+  end
+
+  input.split("").each do |letter|
+    if letters_in_hand.include?(letter)
+      if counts[letter] > 0
+        counts[letter] -= 1
+      elsif counts[letter] == 0
+        counter += 1
+      end
+    else
+      counter += 1
+    end
+  end
+
+  if counter > 0
+    return false
+  else
+    return true
+  end
+end
