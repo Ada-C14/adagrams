@@ -1,3 +1,4 @@
+require 'csv'
 # - No parameters
 # - Returns an array of ten strings
 # - Each string should contain exactly one letter
@@ -67,10 +68,18 @@ end
 
 def uses_available_letters?(input, letters_in_hand)
 
+  # raise ArgumentError.new("input is nil") if input.nil?
+  #raise ArgumentError.new("input is nil") if letters_in_hand.nil?
+
+
   input_array = input.upcase.split("").sort
   sorted_hand = letters_in_hand.sort[0...input_array.length]
+  intersection = input_array & letters_in_hand
+  subtracted = letters_in_hand - intersection
+  subsubtracted = letters_in_hand - subtracted
 
-  return input_array == sorted_hand
+  #remove all the letters that aren't in input
+  return input_array.sort == subsubtracted.sort
 
 end
 
@@ -95,6 +104,9 @@ end
 # |Q, Z                          |   10 |
 
 def score_word(word)
+
+  raise ArgumentError.new("words is nil") if word.nil?
+
   total_score = 0
 
   word.upcase.each_char do |letter|
@@ -120,3 +132,47 @@ def score_word(word)
 
   return total_score
 end
+
+# Add a method called `highest_score_from` in `adagrams.rb`. This method should have the following properties:
+#
+# - Has one parameter: `words`, which is an array of strings
+# - Returns a single hash that represents the data of a winning word and its score. The hash should have the following keys:
+# - `:word`, whose value is a string of a word
+# - `:score`, whose value is the score of that word
+# - In the case of tie in scores, use these tie-breaking rules:
+#     - prefer the word with the fewest letters...
+#     - ...unless one word has 10 letters. If the top score is tied between multiple words and one is 10 letters long, choose the one with 10 letters over the one with fewer tiles
+#     - If the there are multiple words that are the same score and the same length, pick the first one in the supplied list
+
+
+def highest_score_from(words)
+
+  raise ArgumentError.new("words is nil") if words.nil?
+
+  highest_score = score_word(words.max_by{|word| score_word(word)})
+
+  ties = words.select{ |word| score_word(word) == highest_score}
+
+  ties_minmax = ties.minmax_by{|word| word.length}
+
+  winning_word = ties_minmax[1].length == 10 ? ties_minmax[1] : ties_minmax[0]
+
+  return {word: winning_word, score: score_word(winning_word)}
+
+end
+
+def is_in_english_dict?(input)
+
+dictionary = CSV.read("./assets/dictionary-english.csv").flatten
+
+  dict_hash = Hash.new { |hash, key| hash[key] = [] }
+
+  dictionary.each do |word|
+    dict_hash[word.chars.sort.join.to_sym] << word
+  end
+
+ return dict_hash[input.chars.sort.join.to_sym].include?(input)
+
+
+end
+
