@@ -43,9 +43,23 @@ def draw_letters
 
 end
 
+puts draw_letters
 
+puts "What is your word?"
+user_input = gets.chomp
+def uses_available_letters?(input, letters_in_hand)
+  input_split = input.split(//)
+  input_split.each do |i|
+    if letters_in_hand.include?(i)
+      my_array.delete_at(my_array.index(i))
+    else
+      return False
+    end
+  end
+  return True
+end
 
-
+puts uses_available_letters?(user_input, my_array)
 #   letter_array = letter_hash.map do |letter, number|
 #     number.times do
 #       "#{letter}"
@@ -53,7 +67,6 @@ end
 #   end
 # end
 
-pp draw_letters
 
 
 # Why is it not possible to access hash when defined above the method?
