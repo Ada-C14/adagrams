@@ -1,3 +1,5 @@
+# Sources: https://stackoverflow.com/questions/33160746/is-there-anything-bsearch-for-strings-in-ruby
+
 require 'csv'
 
 ALL_LETTERS = {
@@ -124,34 +126,9 @@ def highest_score_from(words)
 end
 
 def is_in_english_dict?(input)
-  if input.nil? || input.empty?
-    return nil
-  else
-    input = input.downcase
+  return nil if input.nil? || input.empty?
 
-    CSV.read("assets/dictionary-english.csv").flatten.each do |word|
-      word == input ? (return true) : next
-    end
+  word_exists = CSV.read("assets/dictionary-english.csv").flatten.bsearch { |word| input.downcase <=> word }
 
-    return false
-  end
+  word_exists ? (return true) : (return false)
 end
-
-#MAIN PROGRAM#################
-# hand = draw_letters
-# print "Here are your letters #{hand}, input an anagram: "
-# anagram = gets.chomp.upcase
-# words = ["AAAAA", "EEEEE"]
-# while anagram != 'Q'
-#   if uses_available_letters?(anagram, hand)
-#     words << anagram
-#     puts "Please input another anagram, or enter 'q' to proceed: "
-#   else
-#     puts "Invalid anagram. Please try again, or enter 'q' to proceed: "
-#   end
-#   anagram = gets.chomp.upcase
-# end
-
-# puts "The highest scoring word is: #{highest_score_from(words)}"
-#
-# p is_in_english_dict?('abdomen')
