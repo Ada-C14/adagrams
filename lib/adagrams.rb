@@ -1,65 +1,66 @@
-
+LETTER_HASH = {
+    a: 9,
+    b: 2,
+    c: 2,
+    d: 4,
+    e: 12,
+    f: 2,
+    g: 3,
+    h: 2,
+    i: 9,
+    j: 1,
+    k: 1,
+    l: 4,
+    m: 2,
+    n: 6,
+    o: 8,
+    p: 2,
+    q: 1,
+    r: 6,
+    s: 4,
+    t: 6,
+    u: 4,
+    v: 2,
+    w: 2,
+    x: 1,
+    y: 2,
+    z: 1
+}
 
 def draw_letters
-  letter_hash = {
-      a: 9,
-      b: 2,
-      c: 2,
-      d: 4,
-      e: 12,
-      f: 2,
-      g: 3,
-      h: 2,
-      i: 9,
-      j: 1,
-      k: 1,
-      l: 4,
-      m: 2,
-      n: 6,
-      o: 8,
-      p: 2,
-      q: 1,
-      r: 6,
-      s: 4,
-      t: 6,
-      u: 4,
-      v: 2,
-      w: 2,
-      x: 1,
-      y: 2,
-      z: 1
-  }
-
-  letter_array = []
-  letter_hash.each do |letter, number|
+  letters = []
+  LETTER_HASH.each do |letter, number|
     number.times do
-      letter_array << "#{letter}"
+      letters << "#{letter}"
     end
   end
 
-  my_array = letter_array.sample(10)
-
-  return my_array
-
+  return letters.sample(10)
 end
 
-puts draw_letters
+user_letters = draw_letters()
+puts user_letters
 
 puts "What is your word?"
 user_input = gets.chomp
+
 def uses_available_letters?(input, letters_in_hand)
-  input_split = input.split(//)
+  pp letters_in_hand
+  letters_in_hand_copy = letters_in_hand[0..letters_in_hand.length]
+  input_split = input.split("")
   input_split.each do |i|
-    if letters_in_hand.include?(i)
-      my_array.delete_at(my_array.index(i))
+    if letters_in_hand_copy.include?(i)
+      letters_in_hand_copy.delete_at(letters_in_hand_copy.index(i))
     else
-      return False
+      return false
     end
   end
-  return True
+  pp letters_in_hand_copy
+  pp letters_in_hand
+  return true
 end
 
-puts uses_available_letters?(user_input, my_array)
+puts uses_available_letters?(user_input, user_letters)
 #   letter_array = letter_hash.map do |letter, number|
 #     number.times do
 #       "#{letter}"
