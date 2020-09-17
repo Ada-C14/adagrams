@@ -33,12 +33,9 @@ def draw_letters()
     pool_of_letters.concat(Array.new(quantity, letter))
   end
 
-
   letters_in_hand = pool_of_letters.sample(10)
   return letters_in_hand
 end
-
-p letters_in_hand = draw_letters()
 
 
 def uses_available_letters?(input, letters_in_hand)
@@ -49,7 +46,6 @@ def uses_available_letters?(input, letters_in_hand)
     letters_in_hand_hash[letter] += 1
   end
 
-  input_array = []
   input_array = input.upcase.split(//)
   input_hash = Hash.new(0)
 
@@ -59,8 +55,6 @@ def uses_available_letters?(input, letters_in_hand)
   end
 
 
-
-# Returns false if there is a letter in input that is not present in the letters_in_hand
   input_array.each do |letter|
     if !letters_in_hand_hash.has_key?(letter)
       return false
@@ -82,10 +76,7 @@ def uses_available_letters?(input, letters_in_hand)
   return true
 end
 
-p uses_available_letters?("hi",["A", "E", "O", "R", "G", "S", "E", "E", "J", "T"])
 
-#Wave 3
-# the cost of the word
 def score_word(word)
   letters_cost = {
       "A" => 1,
@@ -117,28 +108,27 @@ def score_word(word)
       }
 
 
-  letters = word.upcase.split(//) # NoMethodError: undefined method `upcase' for ["a"]:Array when it was word.split(//).upcase
+  letters = word.upcase.split(//)
   score = 0
 
   letters.each do |letter|
     score += letters_cost[letter]
   end
 
-  # if letters.length <= 10 && letters.length >= 7 Can't be 10 AND 7
+
   if letters.length < 11 && letters.length > 6
     score += 8
   end
   return score
 end
 
-# Wave 4
-# Find highest scoring word
+
 def highest_score_from(words)
 
   word_score_hash = Hash.new(0)
 
   words.each do |word|
-    score = score_word(word) # return a score
+    score = score_word(word)
     word_score_hash[word] = score
   end
 
@@ -155,18 +145,37 @@ def highest_score_from(words)
     end
   end
 
-  #tie_hash {word4: 4, word5: 4}
   winner = {}
-  min_word = ''
-  if tie_hash.length > 1
+  num_of_highest_scorers = tie_hash.length
+  if num_of_highest_scorers > 1
     tie_hash.each do |word, score|
-      if word < min_word
-        min_word = word
-        winner = { min_word => score }
+      if word.length == 10
+        return winner = { word: word, score: score }
       end
     end
+
+    ties_sorted_by_length = (tie_hash.sort_by { |word, score| word.length }).to_h
+    shortest_highest_scorer = ties_sorted_by_length.first
+    word = shortest_highest_scorer[0]
+    score = shortest_highest_scorer[1]
+    winner = { word: word, score: score }
+    return winner
+
+  else
+    tie_hash.each do |word, score|
+      winner = { word: word, score: score }
+    end
+    return winner
+  end
+
+  # if multiple words have the same length and score, the first supplied word is the winner
+  if winner.empty?
+    first_highest_scorer = tie_hash.first
+    word = first_highest_scorer[0]
+    score = first_highest_scorer[1]
+    puts "We're in here!"
+    return winner = { word: word, score: score }
   end
 
   return winner
 end
-
