@@ -116,5 +116,27 @@ def uses_available_letters?(play, deck)
   return true
 end
 
-# p uses_available_letters?(play, deck)
 
+def score_word(word)
+  scores = {
+      1: "A", "E", "I", "O", "U", "L", "N", "R", "S", "T"
+      2: "D", "G",
+      3: "B", "C", "M", "P"
+      4: "F", "H", "V", "W", "Y",
+      5: "K",
+      8: "J", "K",
+      10: "Q", "Z"
+  }
+
+  word.length.times do |score|
+
+  end
+end
+
+
+## Collect all the words played each element a word string
+# words = []
+#
+def highest_score_from(words)
+
+end
