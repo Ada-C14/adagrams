@@ -1,3 +1,4 @@
+require 'csv'
 
 def draw_letters()
   hand = []
@@ -77,4 +78,9 @@ def highest_score_from(words)
   end
   score_hash = { word: highest_word, score: max_score}
   return score_hash
+end
+
+def is_in_english_dict?(input)
+  dict = CSV.read('assets/dictionary-english.csv')
+  dict.include?([input.downcase]) ? true : false
 end
