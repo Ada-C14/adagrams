@@ -95,28 +95,28 @@ end
 # |Q, Z                          |   10 |
 
 def score_word(word)
-  points = 0
+  total_score = 0
 
   word.upcase.each_char do |letter|
     case letter
     when 'A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'
-      points += 1
+      total_score += 1
     when 'D', 'G'
-      points += 2
+      total_score += 2
     when 'B', 'C', 'M', 'P'
-      points += 3
+      total_score += 3
     when 'F', 'H', 'V', 'W', 'Y'
-      points += 4
+      total_score += 4
     when 'K'
-      points += 5
+      total_score += 5
     when 'J', 'X'
-      points += 8
+      total_score += 8
     when 'Q', 'Z'
-      points += 10
+      total_score += 10
     end
   end
 
-  points += 8 if word.length > 6 && word.length <= 10
+  total_score += 8 if word.length > 6 && word.length <= 10
 
-  return points
+  return total_score
 end
