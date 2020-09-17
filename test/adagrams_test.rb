@@ -7,24 +7,24 @@ require_relative '../lib/adagrams'
 # Get that nice colorized output
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
-describe 'Adagrams' do
-  describe 'draw_letters method' do
-    it 'draws ten letters from the letter pool' do
-      drawn_letters = draw_letters
-      expect(drawn_letters.size).must_equal 10
-    end
-
-    it 'returns an array, and each item is a single-letter string' do
-      drawn_letters = draw_letters
-      expect(drawn_letters.size).must_equal 10
-
-      expect(drawn_letters).must_be_instance_of Array
-      drawn_letters.each do |letter|
-        expect(letter).must_be_instance_of String
-        expect(letter.length).must_equal 1
-      end
-    end
-  end
+# describe 'Adagrams' do
+#   describe 'draw_letters method' do
+#     it 'draws ten letters from the letter pool' do
+#       drawn_letters = draw_letters
+#       expect(drawn_letters.size).must_equal 10
+#     end
+#
+#     it 'returns an array, and each item is a single-letter string' do
+#       drawn_letters = draw_letters
+#       expect(drawn_letters.size).must_equal 10
+#
+#       expect(drawn_letters).must_be_instance_of Array
+#       drawn_letters.each do |letter|
+#         expect(letter).must_be_instance_of String
+#         expect(letter.length).must_equal 1
+#       end
+#     end
+#   end
 
   describe 'uses_available_letters? method' do
 
@@ -74,7 +74,7 @@ describe 'Adagrams' do
       expect(score_word("WHIMSY")).must_equal 17
     end
 
-    it 'returns a score regardless of input case' do
+    it ' regardless of input case' do
       expect(score_word("a")).must_equal 1
       expect(score_word("dog")).must_equal 5
       expect(score_word("wHiMsY")).must_equal 17

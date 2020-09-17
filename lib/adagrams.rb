@@ -127,7 +127,6 @@ def score_word(word)
       8: "J", "K",
       10: "Q", "Z"
   }
-
   word.length.times do |score|
 
   end
