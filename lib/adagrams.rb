@@ -74,35 +74,47 @@ def draw_letters
   return players_hand_arr
 end
 
-letters_in_hand = draw_letters
+# letters_in_hand = draw_letters
+
+letters_in_hand = ['D', 'O', 'G', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
 p letters_in_hand
 
-input = [ "E", "E", "A"]
+input = [ "D", "O", "G"]
 
 def hash_headache(strings)
   letters_hash = Hash.new(0)
-  strings.each { |letter| letters_hash[letter] += 1 }
+  strings.chars.each { |letter| letters_hash[letter] += 1 }
   letters_hash
 end
 
-p hash_headache(input)
-play = hash_headache(input)
-p play
+def hashes_suck_too(array)
+  deck_hash = Hash.new(0)
+  array.each { |letter| deck_hash[letter] += 1 }
+  deck_hash
+end
 
 
 
-p hash_headache(letters_in_hand)
-deck = hash_headache(letters_in_hand)
-p deck
+# p hash_headache(letters_in_hand)
+# deck = hash_headache(letters_in_hand)
+# p deck
 
 def uses_available_letters?(play, deck)
-  play.each do | letter , count |
-    if deck[letter] < count
+  hand = hash_headache(play)
+  pool = hashes_suck_too(deck)
+  hand.each do | letter , count |
+    p letter
+    p count
+    p hand
+    p deck
+    p play
+    p pool
+    if pool[letter] < count
       return false
     end
   end
   return true
 end
 
-p uses_available_letters?(play, deck)
+# p uses_available_letters?(play, deck)
 
