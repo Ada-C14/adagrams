@@ -40,15 +40,13 @@ SCORE_CHART = [
   { 10 => %w[Q Z] }
 ].freeze
 
+# wave 1
 def draw_letters
-ten_letters = ALPHABET.sample(10)
+  ten_letters = ALPHABET.sample(10)
   return ten_letters
- # puts "Please enter a word:"
- # input = gets.chomp
- # uses_available_letters?(input, ten_letters)
 end
 
-
+# wave 2
 def uses_available_letters?(input, ten_letters)
 
   #declaring a variable, gets the result of the function
@@ -76,17 +74,22 @@ def count_letters(letters)
     count += 1
     letter_frequency[letter] = count
   end
-  print letter_frequency
   return letter_frequency
 end
-draw_letters()
 
+# wave 3
 def score_word(word)
   word_array = word.upcase.split('')
   score = 0
   SCORE_CHART.length.times do |index|
-    puts "score_chart test: #{SCORE_CHART[index].keys[0]}"
+    # nested iteration: for each letter in word_array, check if the letter is in the
+    # value of the corresponding key-value pair, at make an array
+    # (e.g., word_array = [H E L L O], when index = 0, check_letters = [E L L O] )
     check_letters = word_array.select { |letter| SCORE_CHART[index].values.flatten.include?(letter) }
+    # after the iteration, if check_letters is empty, do nothing, otherwise
+    # get the length of check_letters and multiply it by the corresponding key
+    # (e.g., [E L L O].length = 4 and 4 * 1 = 4 (where 1 is the key that corresponds with the first
+    # hash-element of SCORE_CHART))
     score += check_letters.length * SCORE_CHART[index].keys[0] unless check_letters.empty?
   end
 
@@ -95,14 +98,42 @@ def score_word(word)
   return score
 end
 
-=begin
-def uses_available_letters?(input, letters_in_hand)
-  input_to_array = input.upcase.split('')
-  puts "puts input_to_array & letters_in_hand #{puts input_to_array & letters_in_hand}"
-  if (input_to_array & letters_in_hand) == input_to_array.uniq
-    return true
-  else
-    return false
+# wave 4
+def highest_score_from(words)
+
+  winning_info = {}
+  high_score = 0
+  high_score_word_length = 0
+
+  # iterate through words (array of string-input) to find
+  # winning word and its score - append into winning_info hash
+  words.each do |word|
+    score = score_word(word)
+
+    if score > high_score
+      high_score = score
+      high_score_word_length = word.length
+      winning_info = {
+        word: word,
+        score: score
+      }
+      # tie-breaker conditionals
+    elsif (score == high_score) && (high_score_word_length < 10)
+      if word.length < high_score_word_length
+        winning_info = {
+          word: word,
+          score: score
+        }
+
+      elsif word.length == 10
+        winning_info = {
+          word: word,
+          score: score
+        }
+      end
+    end
   end
+
+  return winning_info
+
 end
-=end
