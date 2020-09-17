@@ -95,8 +95,28 @@ end
 # |Q, Z                          |   10 |
 
 def score_word(word)
-  # - Each letter within `word` has a point value. The number of points of each letter is summed up to represent the total score of `word`
-  # - Each letter's point value is described in the table below
-  # - If the length of the word is 7, 8, 9, or 10, then the word gets an additional 8 points
-  #  return int points
+  points = 0
+
+  word.upcase.each_char do |letter|
+    case letter
+    when 'A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'
+      points += 1
+    when 'D', 'G'
+      points += 2
+    when 'B', 'C', 'M', 'P'
+      points += 3
+    when 'F', 'H', 'V', 'W', 'Y'
+      points += 4
+    when 'K'
+      points += 5
+    when 'J', 'X'
+      points += 8
+    when 'Q', 'Z'
+      points += 10
+    end
+  end
+
+  points += 8 if word.length > 6 && word.length <= 10
+
+  return points
 end
