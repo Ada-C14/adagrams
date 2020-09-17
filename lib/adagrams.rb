@@ -39,10 +39,10 @@ def draw_letters
 end
 
 user_letters = draw_letters()
-puts user_letters
+pp user_letters
 
 puts "What is your word?"
-user_input = gets.chomp
+user_input = gets.chomp.downcase
 
 def uses_available_letters?(input, letters_in_hand)
   pp letters_in_hand
@@ -60,7 +60,43 @@ def uses_available_letters?(input, letters_in_hand)
   return true
 end
 
-puts uses_available_letters?(user_input, user_letters)
+# Should we enter
+
+def score_word(word)
+  word_split = word.downcase.split("")
+  score = 0
+  word_split.each do |letter|
+    case letter
+    when "a", "e", "i", "o", "u", "l", "n", "r", "s", "t"
+      score += 1
+    when "d", "g"
+      score += 2
+    when "b", "c", "m", "p"
+      score += 3
+    when "f", "h", "v", "w", "y"
+      score += 4
+    when "k"
+      score += 5
+    when "j", "x"
+      score += 8
+    when "q", "z"
+      score += 10
+    end
+  end
+
+  if word_split.length > 6 && word_split.length < 11
+    score += 8
+  end
+
+  return score
+
+end
+
+# pp score_word(user_input)
+
+
+
+#puts uses_available_letters?(user_input, user_letters)
 #   letter_array = letter_hash.map do |letter, number|
 #     number.times do
 #       "#{letter}"
