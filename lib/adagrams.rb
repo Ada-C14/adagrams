@@ -96,19 +96,28 @@ def highest_score_from(words)
   # puts score_hash
 
 
-  max_score = score_hash.values.max
-  max_ties = score_hash.select { |k, v| v == max_score }.keys
+  score = score_hash.values.max
+  best_array = score_hash.select { |k, v| v == score }.keys
 
-  max_ties.each do |word|
+  best_words = {}
+  best_array.each do |word|
     if word.length == 10
-      return { word => max_score }
-    # elsif word.length < word.length
-    #   return {word => max_score}
+      best_words[:word] = word
+      best_words[:score] = score
+      return best_words
     end
-    
+
   end
+
+  best_array = best_array.sort_by {|word| word.length}
+
+
+
+  best_words[:word] = best_array.first
+  best_words[:score] = score
+  return best_words
 
 end
 
-words = ["kkkb", "jz", "aa"]
+words = ['AAAAAAAAAA', 'EEEEEEEEEE']
 print highest_score_from(words)
