@@ -1,3 +1,5 @@
+require 'csv'
+
 ##################### wave 1
 def draw_letters
   letter_pool = []
@@ -112,3 +114,10 @@ def highest_score_from(words)
 
 end
 
+######################### wave 5
+def is_in_english_dict?(input)
+
+  dictionary = CSV.read('../assets/dictionary-english.csv').map { |word| word.to_s }
+  return dictionary.include?(input)
+
+end
