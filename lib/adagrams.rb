@@ -83,3 +83,19 @@ end
 word = "abcdefghi"
 
 score_word(word)
+
+def highest_score_from(words)
+  score_hash = {}
+
+  words.each do |word|
+    score_hash[word] = score_word(word)
+  end
+
+  score_hash.each do |k, v|
+    max_score = score_hash.max_by {|v|}
+  end
+  
+end
+
+words = %w[asdflkj ieflkj slfkjd]
+print highest_score_from(words)
