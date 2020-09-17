@@ -93,5 +93,37 @@ def score_word(word)
 end
 
 # Wave 4
-# Use score_word function
-# return { word: 'string', score: score_int }
+
+def highest_score_from(words)
+  hash = {}
+  points = words.map { |word| score_word(word) }
+
+  tie = []
+  points.each do |point|
+    if point == points.max
+      tie << points.index(point)
+    end
+  end
+
+  word_lengths = words.map { |word| word.chars.count }
+
+  if tie.length > 1
+    word_lengths.each do |length|
+      if length == 10
+        hash[:word] = words[word_lengths.index(length)]
+        hash[:score] = points[word_lengths.index(length)]
+        return hash
+      elsif length < 10
+        min_length = word_lengths.min
+        hash[:word] = words[word_lengths.index(min_length)]
+        hash[:score] = points[word_lengths.index(min_length)]
+      end
+    end
+  else
+    hash[:word] = words[tie[0]]
+    hash[:score] = points[tie[0]]
+  end
+
+  return hash
+end
+
