@@ -10,8 +10,6 @@ def draw_letters
   return hand_of_letters.sample(10)
 end
 
-
-
 def uses_available_letters?(input, letters_in_hand)
 
   letters_arr = input.upcase.split("")
@@ -30,4 +28,28 @@ def uses_available_letters?(input, letters_in_hand)
   end
 end
 
+def score_word(word)
+  letters_and_value = {
+      1 => ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
+      2 => ["D", "G"],
+      3 => ["B", "C", "M", "P"],
+      4 => ["F", "H", "V", "W", "Y"],
+      5 => ["K"],
+      8 => ["J", "X"],
+      10 => ["Q", "Z"]
+  }
 
+  letters_arr = word.upcase.chars
+  score = 0
+  letters_arr.each do |letter|
+    letters_and_value.each do |num, letters|
+      if letters.include?(letter)
+        score += num
+      end
+    end
+  end
+
+  score += 8 if word.length >=7
+
+  return score
+end
