@@ -36,69 +36,59 @@ distribution = {
     end
   end
 
-  letters = []
+  drawn_letters = []
 
   10.times do
     index = rand(0...distribution_array.length)
-    letters << distribution_array[index]
+    drawn_letters << distribution_array[index]
     distribution_array.delete_at(index)
   end
 
-  return letters
+  return drawn_letters
 end
 
+def uses_available_letters?(input, letters_in_hand)
 
-def make_count_hash(array)
-  hash = Hash.new(0)
-  array.each do |letter|
-    hash[letter] += 1
+  input_hash = Hash.new(0)
+
+  input.upcase!
+  input = input.split('')
+  input.each do |letter|
+    input_hash[letter] += 1
   end
-  return hash
-end
+  input = input_hash
 
-letters = draw_letters
-letter_hash = make_count_hash(letters)
+  letter_hash = Hash.new(0)
+  letters_in_hand.each do |letter|
+    letter_hash[letter] += 1
+  end
+  letters_in_hand = letter_hash
 
-p letters
 
-word = gets.chomp.upcase!
-word = word.split('')
-word_hash = make_count_hash(word)
-
-puts word_hash
-puts letter_hash
-
-def uses_available_letters?(word_hash, letter_hash)
-  word_hash.each do |letter, count|
-    if letter_hash[letter] < count
+  input.each do |letter, count|
+    if letters_in_hand[letter] < count
       return false
     end
   end
   return true
 end
 
-  until true
-    puts "invalid entry. would you like to try again?"
-
-# until true
-#   score = score
-#   puts "Your word was accepted!"
-#   puts "Would you like to enter another word? Enter 'yes' to continue"
-#   input = gets.chomp
-# else
-#   score = 0
-#   puts "Your word uses letters not included in your hand."
-#   puts "Would you like to try again? enter 'yes' to continue"
-#   input = gets.chomp
-#     if input != 'yes'
-#       break
-#     end
-# end
-
-
-puts uses_available_letters?(word_hash, letter_hash)
-
 def score_word(word)
+
+  if word.length >= 7
+    score = 8
+  else
+    score = 0
+  end
+
+  hash = Hash.new(0)
+  word.upcase!
+  word = word.split('')
+  word.each do |letter|
+    hash[letter] += 1
+  end
+  word = hash
+
 values = {
           "A" => 1, "E" => 1, "I" => 1, "O" => 1, "U" => 1, "L" => 1, "N" => 1, "R" => 1, "S" => 1, "T" => 1,
           "D" => 2, "G" => 2,
@@ -109,17 +99,16 @@ values = {
           "Q" => 10, "Z" => 10
           }
 
-  score = 0
+
   values.each do |letter, value|
     score += (word[letter] * values[letter])
-  end
-
-  if word.length >= 7
-    score += 8
   end
 
   return score
 end
 
-puts score_word(word_hash)
+
+def highest_score_from(words)
+
+end
 
