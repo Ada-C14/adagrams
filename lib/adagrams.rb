@@ -50,3 +50,32 @@ def uses_available_letters?(input, letters_in_hand)
 
   return true
 end
+
+# Wave 3
+def score_word(word)
+  score_chart = {
+      1 => %w[A E I O U L N R S T],
+      2 => %w[D G],
+      3 => %w[B C M P],
+      4 => %w[F H V W Y],
+      5 => %w[K],
+      8 => %w[J X],
+      10 => %w[Q Z]
+  }
+
+  score = 0
+
+  word.upcase.split("").each do |char|
+    score_chart.each do |point_value, letters|
+      if letters.include?(char)
+        score += point_value
+      end
+    end
+  end
+
+  if word.length > 6 && word.length <= 10
+    score += 8
+  end
+
+  return score
+end
