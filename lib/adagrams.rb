@@ -48,31 +48,16 @@ def draw_letters
 end
 
 def uses_available_letters?(input, letters_in_hand)
-
-  # create a hash where each letter is the key and the number of letters is the value.
-  # take the intersection_with dupes, turn into a hash of letters and counts
-  # Take input_array, turn into hash of letters and counts
-  # if the length two hashes is the same ()all letters match) compare the letter count between letters
-  # if INput_hash letter count is more, return false
-
   raise ArgumentError.new("input is nil") if input.nil?
-  raise ArgumentError.new("input is nil") if letters_in_hand.nil?
-  result = ''
-  # input.length.times do |index|
-  #   if letters_in_hand.include?input[index]
-  #     if letters_in_hand.select { |letter| letter == input[index] }.count == input[index].count
-  #       result = true
-  #     else
-  #      result = false
-  #   end
-  # end
+  raise ArgumentError.new("letters_in_hand is nil") if letters_in_hand.nil?
 
-  #return result
 
   input_array = input.upcase.split("").sort
-  intersection_with_dupes = (letters_in_hand - (letters_in_hand - (input_array & letters_in_hand)))
   input_letter_count = {}
   inter_letter_count = {}
+
+  intersection_with_dupes = (letters_in_hand - (letters_in_hand - (input_array & letters_in_hand)))
+
   input_array.each do |letter|
     input_letter_count[letter.to_sym] = input_array.count(letter)
   end
@@ -90,11 +75,6 @@ def uses_available_letters?(input, letters_in_hand)
     uses_available = false
   end
 
-  # #variable contains intersection, but retains duplicate letters
-
-  #
-  # #remove all the letters that aren't in input
-  # return input_array == intersection_with_dupes
   return uses_available
 end
 
@@ -159,6 +139,3 @@ def is_in_english_dict?(input)
  return dict_hash[input.downcase.chars.sort.join.to_sym].include?(input.downcase)
 
 end
-
-
-p uses_available_letters?('HEN', %w(H N N N L E H K Y U))
