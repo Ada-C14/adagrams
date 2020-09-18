@@ -53,3 +53,19 @@ def score_word(word)
 
   return score
 end
+
+def highest_score_from(words)
+  words_and_scores_array = []
+  max_score = 0
+
+  words.each do |word|
+    words_and_scores_array << {word: word, score: score_word(word)}
+    # update max_score if we find a higher score
+    max_score = score_word(word) if score_word(word) > max_score
+    return {word: word, score: score_word(word)} if word.length == 10
+  end
+
+  return words_and_scores_array.select {|hash| hash[:score] == max_score}.sort_by{|hash| hash[:word].length}[0]
+end
+
+
