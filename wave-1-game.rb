@@ -15,5 +15,4 @@ def run_game
   display_drawn_letters(draw_letters)
 end
 
-
 run_game
