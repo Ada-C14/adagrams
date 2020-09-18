@@ -1,5 +1,4 @@
 require 'csv'
-# require '../test/Rakefile'
 require 'rake/testtask'
 #WAVE 1
 def draw_letters
@@ -18,14 +17,9 @@ def draw_letters
   return hand #array
 end
 
-puts draw_letters
-
 #WAVE 2
 def uses_available_letters?(word, letters_in_hand)
   word_array = word.split('')
-
-  # word_tally = Hash.new(0)
-  # word_array.each { |letter| word_tally[letter] += 1 }
 
   letters_tally = Hash.new(0)
   letters_in_hand.each { |letter| letters_tally[letter] += 1 }
@@ -79,20 +73,19 @@ end
 
 #WAVE 4
 def highest_score_from(words_array) #recives all_hands
-  # max_score = words_array.group_by { |x| x[:score] }.max
-  print "******"
-  print words_array
+  all_words = [] #array of hashes
+  words_array.each do |word|
+    all_words << { :word => word, :score => score_word(word) }
+  end
   max_score = 0
-  words_array.each do |hash|
+  all_words.each do |hash|
     if hash[:score] > max_score
       max_score = hash[:score]
     end
   end
-  print max_score
-  # print max_score
 
-  highest_scoring = words_array.select { |h| h[:score] == max_score }.map { |h| h } #array of hashes
-
+  highest_scoring = all_words.select { |h| h[:score] == max_score }.map { |h| h } #array of hashes
+  highest_scoring.sort_by! { |h| h[:word].length }
   winning_words = [] #catches 10 letter words
 
   highest_scoring.map do |word_w_score|
@@ -108,18 +101,6 @@ def highest_score_from(words_array) #recives all_hands
   end
 end
 
-#WAVE 5
-# def is_in_english_dict?(input)
-#   CSV.open("assets/dictionary-english.csv", "r").each do |word| #stands for row
-#   return true if word.include?(input.downcase)
-#   end
-#   return false
-# end
-
-#start game
-
-
-
 print "How many hands would you like to draw? => "
 number_of_hands = gets.chomp.to_i
 
@@ -129,20 +110,10 @@ number_of_hands.times do
 
   p draw_letters
 
-
-
   puts "Word?"
   word = gets.chomp
-  # puts uses_available_letters?(word, draw_letters)
-  # puts is_in_english_dict?(word)
+
   all_hands << word
-  #
-
-  # one_word = { :word => word, :score => score_word(word) }
-  # all_hands << one_word
-
-
-
 end
 
 puts highest_score_from(all_hands)
