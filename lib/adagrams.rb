@@ -38,14 +38,7 @@ def draw_letters
   return letters.sample(10)
 end
 
-user_letters = draw_letters()
-pp user_letters
-
-puts "What is your word?"
-user_input = gets.chomp.downcase
-
 def uses_available_letters?(input, letters_in_hand)
-  pp letters_in_hand
   letters_in_hand_copy = letters_in_hand[0..letters_in_hand.length]
   input_split = input.split("")
   input_split.each do |i|
@@ -55,12 +48,8 @@ def uses_available_letters?(input, letters_in_hand)
       return false
     end
   end
-  pp letters_in_hand_copy
-  pp letters_in_hand
   return true
 end
-
-# Should we enter
 
 def score_word(word)
   word_split = word.downcase.split("")
@@ -92,21 +81,37 @@ def score_word(word)
 
 end
 
-# pp score_word(user_input)
+def highest_score_from(words)
+  word_scores = []
+  words.each do |word|
+    each_word = {}
+    each_word[:word] = word
+    each_word[:score] = score_word(word)
+    word_scores << each_word
+  end
 
+  highest_score_word = ''
+  highest_score = 0
+  winning_word = {}
+  word_scores.each do |word|
+    if word[:score] > highest_score
+      highest_score_word = word[:word]
+      highest_score = word[:score]
+    elsif word[:score] == highest_score
+      if word[:word].length == 10 && highest_score_word.length != 10
+        highest_score_word = word[:word]
+        highest_score = word[:score]
+      elsif (word[:word].length < highest_score_word.length) && highest_score_word.length != 10
+        highest_score_word = word[:word]
+        highest_score = word[:score]
+      end
+    end
+  end
+  winning_word[:word] = highest_score_word
+  winning_word[:score] = highest_score
+  return winning_word
+end
 
-
-#puts uses_available_letters?(user_input, user_letters)
-#   letter_array = letter_hash.map do |letter, number|
-#     number.times do
-#       "#{letter}"
-#     end
-#   end
-# end
-
-
-
-# Why is it not possible to access hash when defined above the method?
 
 
 
