@@ -79,3 +79,33 @@ def score_word(word)
 
   return score
 end
+
+# Wave 4
+def highest_score_from(words)
+  scores = words.map { |word| score_word(word) }
+
+  max_score = scores.max
+
+  if scores.count(max_score) == 1
+    return {
+        word: words[scores.index(max_score)],
+        score: max_score
+    }
+  else
+    highest_scoring_words = words.select { |word| score_word(word) == max_score }
+
+    tied_words_length = highest_scoring_words.map { |word| word.length }
+
+    if tied_words_length.include?(10)
+      return {
+          word: highest_scoring_words[tied_words_length.index(10)],
+          score: max_score
+      }
+    else
+      return {
+          word: highest_scoring_words[tied_words_length.index(tied_words_length.min)],
+          score: max_score
+      }
+    end
+  end
+end
