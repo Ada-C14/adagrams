@@ -27,7 +27,8 @@ def draw_letters
       Y: 2,
       Z: 1
   }
-
+  
+  # places the appropriate number of each letter in an array
   letters_array = []
   letter_quantities.each do |key, value|
     value.times do
@@ -55,19 +56,10 @@ def uses_available_letters?(input, letters_in_hand)
       include_letter_array << false
     end
   end
-  # evaluates boolean array: if all values are true, returns true. Otherwise returns false.
+  # evaluates boolean array: if all values are true, returns true. Otherwise returns false
   return include_letter_array.all?(true)
 end
 
-# We want a method that returns the score of a given word as defined by the Adagrams game.
-
-# Name this method score_word in adagrams.rb. This method should have the following properties:
-
-# Has one parameter: word, which is a string of characters
-# Returns an integer representing the number of points
-# Each letter within word has a point value. The number of points of each letter is summed up to represent the total score of word
-# Each letter's point value is described in the table below
-# If the length of the word is 7, 8, 9, or 10, then the word gets an additional 8 points
 
 def score_word(word)
   sum = 0
@@ -75,7 +67,7 @@ def score_word(word)
   word.upcase.each_char do |char|
 
     case char
-      # splatting (*) an array turns each array item into a parameter that’s passed to the method
+    # splatting (*) an array turns each array item into a parameter that’s passed to the method
     when *%w[A E I O U L N R S T]
       sum += 1
     when *%w[D G]
@@ -100,33 +92,44 @@ def score_word(word)
   return sum
 end
 
-# Has one parameter: words, which is an array of strings
-# Returns a single hash that represents the data of a winning word and its score. 
-# The hash should have the following keys:
-# :word, whose value is a string of a word
-# :score, whose value is the score of that word
-# In the case of tie in scores, use these tie-breaking rules:
-# prefer the word with the fewest letters...
-# ...unless one word has 10 letters. If the top score is tied between multiple words and one is 10 letters long, choose the one with 10 letters over the one with fewer tiles
-# If the there are multiple words that are the same score and the same length, pick the first one in the supplied list
+# tie breaker method
+def tie_breaker(winners_array)
 
-
-
+  # check for 10 letter words, return whichever appears first
+  if winners_array.any? { |word_hash| word_hash[:word].length == 10}
+    return winners_array.find { |word_hash| word_hash[:word].length == 10 }
+  else 
+    # check for the word with fewest letters, return whichever appears first
+    return winners_array.min_by { |word_hash| word_hash[:word].length }
+  end
+end
 
 def highest_score_from(words)
 
   array_of_words = []
 
   words.each do |word|
-    hash_word = {}
-    hash_word[:word] = word
-    hash_word[:score] = score_word(word)
-    array_of_words << hash_word
+    word_hash = {}
+    word_hash[:word] = word
+    word_hash[:score] = score_word(word)
+    array_of_words << word_hash
   end
 
-  return array_of_words
-end
+  # finds the highest score
+  highest_score_hash = array_of_words.max_by { |word_hash| word_hash[:score] }
+  highest_score = highest_score_hash[:score]
 
+  # checks if there are multiple words with the same highest score and stores it in an array
+  winners_array = array_of_words.select { |word_hash| word_hash[:score] == highest_score }
+
+  # invokes tie breaker method if the winners_array has more than one element
+  if winners_array.length > 1
+    return tie_breaker(winners_array)
+  else
+  # if no ties, returns the hash for the highest scoring word
+    return winners_array[0]
+  end
+end
 
 
 
