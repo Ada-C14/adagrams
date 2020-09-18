@@ -1,3 +1,5 @@
+require 'csv'
+
 def draw_letters
   distribution = {
       A: 9,
@@ -125,4 +127,13 @@ def highest_score_from(words)
   best_word[:score] = best_score
 
   return best_word
+end
+
+def is_in_english_dict?(input)
+  english_dict = CSV.read("assets/dictionary-english.csv").flatten
+  if english_dict.include?(input)
+    return true
+  else
+    return false
+  end
 end
