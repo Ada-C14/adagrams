@@ -114,6 +114,7 @@ def uses_available_letters?(play, deck)
   return true
 end
 
+
 def score_word(word)
   scores = {
       A: 1,
@@ -144,45 +145,16 @@ def score_word(word)
       Z: 10
   }
 
-score_total = word.upcase.chars.map { |char| scores[char.to_sym] }.sum
+  score_total = word.upcase.chars.map { |char| scores[char.to_sym] }.sum
+
   if word.length >= 7
     score_total += 8
   end
-return score_total
+  return score_total
 end
-# describe 'highest_score_from method' do
-#   it 'returns a hash that contains the word and score of best word in an array' do
-#     words = ['X', 'XX', 'XXX', 'XXXX']
-#     best_word = highest_score_from words
-#
-#     expect(best_word[:word]).must_equal 'XXXX'
-#     expect(best_word[:score]).must_equal 32
-#   end
-#
-# Helper method for
 
-## Collect all the words played each element a word string
-words =['X', 'XX', 'XXXX', 'XXX']
-# best_word = words[0]
-# highest_score = 0
-# score_word(word)
-# def highest_score_from(words)
-#   words.each do |word|
-#     if score_word(word) > highest_score
-#       best_word = word
-#       highest_score =
-#     end
-#   end
-# end
-# # #2.
-#
-# def highest_score_from(words)
-#  return words.max_by { |word| score_word(word) }
-# end
-#
-# p highest_score_from(words)
 
-#If one element length is longer than the privious**
+
 def highest_score_from(words)
   # initialize
   greatest_score = score_word(words[0])
@@ -210,16 +182,10 @@ def highest_score_from(words)
   return greatest_score_pair
 end
 
-puts highest_score_from(words)
 
-# highest_score_hash.max_by { |word, score| score }
-#1.
-# def longest_length(my_strings)
-#   longest_length = my_strings[0]
-#     my_strings.each do |element|
-#       if element.length > longest_length.length
-#           longest_length = element
-#       end
-#     end
-#   return longest_length
-# end
+
+
+
+
+
+
