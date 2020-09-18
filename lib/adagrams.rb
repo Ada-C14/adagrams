@@ -54,7 +54,6 @@ def uses_available_letters?(input, letters_in_hand)
     input_hash[letter] = count_of_letter
   end
 
-
   input_array.each do |letter|
     if !letters_in_hand_hash.has_key?(letter)
       return false
@@ -105,8 +104,7 @@ def score_word(word)
       "X" => 8,
       "Q" => 10,
       "Z" => 10,
-      }
-
+  }
 
   letters = word.upcase.split(//)
   score = 0
@@ -114,7 +112,6 @@ def score_word(word)
   letters.each do |letter|
     score += letters_cost[letter]
   end
-
 
   if letters.length < 11 && letters.length > 6
     score += 8
@@ -124,7 +121,6 @@ end
 
 
 def highest_score_from(words)
-
   word_score_hash = Hash.new(0)
 
   words.each do |word|
@@ -150,7 +146,8 @@ def highest_score_from(words)
   if num_of_highest_scorers > 1
     tie_hash.each do |word, score|
       if word.length == 10
-        return winner = { word: word, score: score }
+        winner = { word: word, score: score }
+        return winner
       end
     end
 
@@ -167,15 +164,4 @@ def highest_score_from(words)
     end
     return winner
   end
-
-  # if multiple words have the same length and score, the first supplied word is the winner
-  if winner.empty?
-    first_highest_scorer = tie_hash.first
-    word = first_highest_scorer[0]
-    score = first_highest_scorer[1]
-    puts "We're in here!"
-    return winner = { word: word, score: score }
-  end
-
-  return winner
 end
