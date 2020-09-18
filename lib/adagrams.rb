@@ -108,6 +108,7 @@ def highest_score_from(words)
       }
     end
   end
+<<<<<<< HEAD
 end
 
 # Wave 5
@@ -117,4 +118,6 @@ def is_in_english_dict?(input)
   dictionary = CSV.read('../assets/dictionary-english.csv', headers: true).map { |word| word["Word"] }
 
   return dictionary.include?(input.downcase)
+=======
+>>>>>>> ba40f80020ad6d268b3f84cf960e550d120a8b6b
 end
