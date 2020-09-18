@@ -27,7 +27,7 @@ LETTER_POOL = [
   Array.new(1, 'X'),
   Array.new(2, 'Y'),
   Array.new(1, 'Z'),
-]
+].feeze
 
 def pool_creation(letter_pool)
   letter_pool_to_draw_from = []
