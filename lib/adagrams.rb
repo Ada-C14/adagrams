@@ -1,4 +1,6 @@
 require 'csv'
+#require 'awesome_print'
+
 # - No parameters
 # - Returns an array of ten strings
 # - Each string should contain exactly one letter
@@ -73,7 +75,7 @@ def uses_available_letters?(input, letters_in_hand)
 
 
   input_array = input.upcase.split("").sort
-  sorted_hand = letters_in_hand.sort[0...input_array.length]
+  #sorted_hand = letters_in_hand.sort[0...input_array.length]
   intersection = input_array & letters_in_hand
   subtracted = letters_in_hand - intersection
   subsubtracted = letters_in_hand - subtracted
@@ -163,16 +165,17 @@ end
 
 def is_in_english_dict?(input)
 
-dictionary = CSV.read("./assets/dictionary-english.csv").flatten
+  raise ArgumentError.new("words is nil") if input.nil?
+
+  dictionary = CSV.read("./assets/dictionary-english.csv").flatten
 
   dict_hash = Hash.new { |hash, key| hash[key] = [] }
 
   dictionary.each do |word|
-    dict_hash[word.chars.sort.join.to_sym] << word
+    dict_hash[word.downcase.chars.sort.join.to_sym] << word
   end
 
- return dict_hash[input.chars.sort.join.to_sym].include?(input)
-
+ return dict_hash[input.downcase.chars.sort.join.to_sym].include?(input.downcase)
 
 end
 
