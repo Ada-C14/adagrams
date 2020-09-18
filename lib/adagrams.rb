@@ -1,5 +1,4 @@
-# WAVE 1
-
+# WAVE 1 - The method draw_letters extracts a sample of 10 letters from the letter_pool array
 def draw_letters
   letter_pool = %w(
   A A A A A A A A A
@@ -33,8 +32,7 @@ def draw_letters
 
 end
 
-# WAVE 2
-
+# WAVE 2 - The method uses_available_letters? checks input against letters_in_hand and returns true if input is in letters_in_hand, false otherwise
 def uses_available_letters?(input, letters_in_hand)
 
   new_letters_in_hand = letters_in_hand.dup
@@ -50,8 +48,7 @@ def uses_available_letters?(input, letters_in_hand)
   return true
 end
 
-# WAVE 3
-#
+# WAVE 3 - The method score_word will tally points for words submitted by user
 def score_word(word)
 
   score = 0
@@ -85,8 +82,7 @@ def score_word(word)
 end
 
 
-# WAVE 4
-
+# WAVE 4 - The method highest_score_from returns the winning word and winning score; checks ties
 def highest_score_from(words)
 
   winner = {word: nil, score: 0}
@@ -96,7 +92,7 @@ def highest_score_from(words)
       winner[:word] = word
       winner[:score] = score_word(word)
     elsif score_word(word) == winner[:score]
-      if ((winner[:word]).length != 10) && (word.length < (winner[:word]).length || word.length == 10 )
+      if ((winner[:word]).length != 10) && (word.length < (winner[:word]).length || word.length == 10)
         winner[:word] = word
         winner[:score] = score_word(word)
       end
