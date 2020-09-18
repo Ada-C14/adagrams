@@ -98,31 +98,29 @@ def score_word(word)
 end
 
 
-
 def highest_score_from(words)
-  # best_word = { word: word, key: key }
 
   best_word = Hash.new
-  best_score = 0
-  winning_word = 0
 
+  best_score = 0
+  winning_word = ""
 
   words.each do |word|
-    if score_word(word) > best_score
-      best_score = score_word(word)
-      best_word[:score] = best_score
-      best_word[:word] = word
-    elsif word.length > winning_word
+    score = score_word(word)
+    if score > best_score
+      best_score = score
       winning_word = word
-      best_word[:word] = word
-    elsif word.length < winning_word
+    elsif word.length == 10 && score == best_score && winning_word.length < 10
       winning_word = word
-      best_word[:word] = word
+      best_score = score
+    elsif score == best_score && word.length < winning_word.length && winning_word.length != 10
+      winning_word = word
+      best_score = score
     end
-
   end
 
-
+  best_word[:word] = winning_word
+  best_word[:score] = best_score
 
   return best_word
 end
