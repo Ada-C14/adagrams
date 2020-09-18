@@ -65,6 +65,24 @@ describe 'Adagrams' do
 
       expect(drawn_letters).must_equal dl_copy
     end
+
+    it 'returns true if the submitted letters are valid against the drawn letters' do
+      drawn_letters = ['K', 'Y', 'F', 'P', 'P', 'W', 'T', 'R', 'L', 'I']
+      test_word = 'FLIP'
+
+      is_valid = uses_available_letters? test_word, drawn_letters
+
+      expect(is_valid).must_equal true
+    end
+
+    it 'returns false if the submitted letters are invalid against the drawn letters' do
+      drawn_letters = ['K', 'Y', 'F', 'P', 'P', 'W', 'T', 'R', 'L', 'I']
+      test_word = 'FLIX'
+
+      is_valid = uses_available_letters? test_word, drawn_letters
+
+      expect(is_valid).must_equal false
+    end
   end
 
   describe 'score_word method' do
