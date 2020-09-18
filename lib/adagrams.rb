@@ -109,6 +109,39 @@ end
 
 
 def highest_score_from(words)
+  # best_word = { word: word, score: score }
 
+  best_word = Hash.new
+  best_score = 0
+  winning_word = 0
+
+  words.each do |word|
+    # iterate through each word to find the best score
+    if score_word(word) > best_score
+      best_score = score_word(word)
+      best_word[:score] = best_score
+      best_word[:word] = word
+
+
+    elsif word.length > winning_word.length && score_word(word) ==
+      winning_word = word
+      best_word[:word] = word
+    elsif word.length < winning_word
+      winning_word = word
+      best_word[:word] = word
+    end
+  end
+  return best_word
 end
 
+
+def highest_score_from(words)
+  word_score_hash = {}
+
+  words.each do |word|
+    word_score_hash[word] = score_word(word)
+  end
+
+  word_score_hash.max_by { |word, score| score }
+
+end
