@@ -150,53 +150,76 @@ score_total = word.upcase.chars.map { |char| scores[char.to_sym] }.sum
   end
 return score_total
 end
-
-
-
-# if (7..10).include?(word.length)
-#   score = word.length * score
-#   score_total += score
+# describe 'highest_score_from method' do
+#   it 'returns a hash that contains the word and score of best word in an array' do
+#     words = ['X', 'XX', 'XXX', 'XXXX']
+#     best_word = highest_score_from words
 #
-#
-# word_length_bonus = [7, 8, 9, 10]
-# if word_length_bonus.length.include?(word.length)
-#   score_total += 8
-# end
-
-#if the length of the word is 7, 8, 9, 10 word gets additional 8 points
-
-
-
-#   word.length.times do
-#     score_total = 0
-#     word.upcase.chars.each do |char|
-#       score_total += scores[char]
-#       p scores[char]
-#       p score_total
-#       p word
-#       end
-#     return score_total
+#     expect(best_word[:word]).must_equal 'XXXX'
+#     expect(best_word[:score]).must_equal 32
 #   end
-# end
+#
+# Helper method for
 
-
-#score_total = word.upcase.chars.map { |char| scores[:char] }.sum
-
-#
-#     word = word.upcase.chars  #String letters in array = char
-#     word.map do |chars|
-#
-#     end
-#       if chars = scores[chars.to_sym]
-#       end
-#       score = word.upcase.chars.map { |scores| scores[:char] }
-#   end
-# end
-#
-#
-# ## Collect all the words played each element a word string
-# # words = []
-# #
+## Collect all the words played each element a word string
+words =['X', 'XX', 'XXXX', 'XXX']
+# best_word = words[0]
+# highest_score = 0
+# score_word(word)
 # def highest_score_from(words)
+#   words.each do |word|
+#     if score_word(word) > highest_score
+#       best_word = word
+#       highest_score =
+#     end
+#   end
+# end
+# # #2.
 #
+# def highest_score_from(words)
+#  return words.max_by { |word| score_word(word) }
+# end
+#
+# p highest_score_from(words)
+
+#If one element length is longer than the privious**
+def highest_score_from(words)
+  # initialize
+  greatest_score = score_word(words[0])
+  greatest_score_pair = {word: words[0], score: greatest_score}
+
+  #looping through all the words
+  words.each do |word|
+
+    if score_word(word) > greatest_score
+      greatest_score = score_word(word)
+      greatest_score_pair = {word: word, score: score_word(word)}
+    elsif score_word(word) == greatest_score
+      # 1 if the current great score word is 10 letters, keep it
+      # 2 elsif the word_score_hash word is 10 letters, that's it
+      # 3 elsif the wordscore_hash word.length < current greatest word.length, that's it
+      if greatest_score_pair[:word].length == 10
+        greatest_score_pair = greatest_score_pair
+      elsif word.length == 10
+        greatest_score_pair = {word: word, score: score_word(word) }
+      elsif word.length < greatest_score_pair[:word].length
+        greatest_score_pair = {word: word, score: score_word(word) }
+      end
+    end
+  end
+  return greatest_score_pair
+end
+
+puts highest_score_from(words)
+
+# highest_score_hash.max_by { |word, score| score }
+#1.
+# def longest_length(my_strings)
+#   longest_length = my_strings[0]
+#     my_strings.each do |element|
+#       if element.length > longest_length.length
+#           longest_length = element
+#       end
+#     end
+#   return longest_length
 # end
