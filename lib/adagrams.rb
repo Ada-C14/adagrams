@@ -35,3 +35,18 @@ def draw_letters
 
   return user_hand
 end
+
+# Wave 2
+def uses_available_letters?(input, letters_in_hand)
+  dup_hand = letters_in_hand.dup
+
+  input.split("").each do |letter|
+    if ! dup_hand.include?(letter)
+      return false
+    end
+
+    dup_hand.delete_at(dup_hand.index(letter))
+  end
+
+  return true
+end
