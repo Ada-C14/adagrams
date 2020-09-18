@@ -1,33 +1,4 @@
-letters = {
-    A: 9,
-    B: 2,
-    C: 2,
-    D: 4,
-    E: 12,
-    F: 2,
-    G: 3,
-    H: 2,
-    I: 9,
-    J: 1,
-    K: 1,
-    L: 4,
-    M: 2,
-    N: 6,
-    O: 8,
-    P: 2,
-    Q: 1,
-    R: 6,
-    S: 4,
-    T: 6,
-    U: 4,
-    V: 2,
-    W: 2,
-    X: 1,
-    Y: 2,
-    Z: 1
-}
-
-
+# Creates an array of letters based on the quantity of letters given
 def letters_arr(letters)
   letter_array = []
   letters.each do |letter, count|
@@ -38,8 +9,7 @@ def letters_arr(letters)
   return letter_array
 end
 
-# p letters_arr(letters)
-
+# Generates a letters array using previous method and selects 10 random letters
 def draw_letters
   letters = {
       A: 9,
@@ -74,39 +44,25 @@ def draw_letters
   return players_hand_arr
 end
 
-# letters_in_hand = draw_letters
-
-# letters_in_hand = ['D', 'O', 'G', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
-# p letters_in_hand
-#
-# input = [ "D", "O", "G"]
-
-def hash_headache(strings)
+# Helper methods produces letter-count hash by iterating through a given string
+def word_to_letter_with_count_hash(strings)
   letters_hash = Hash.new(0)
   strings.chars.each { |letter| letters_hash[letter] += 1 }
   letters_hash
 end
 
-def hashes_suck_too(array)
+# Helper method produces letter count by iterating through a given array
+def letter_with_count_hash(array)
   deck_hash = Hash.new(0)
   array.each { |letter| deck_hash[letter] += 1 }
   deck_hash
 end
 
-# p hash_headache(letters_in_hand)
-# deck = hash_headache(letters_in_hand)
-# p deck
-
+# Verifies that what cards player played were in their hand
 def uses_available_letters?(play, deck)
-  hand = hash_headache(play)
-  pool = hashes_suck_too(deck)
+  hand = word_to_letter_with_count_hash(play)
+  pool = letter_with_count_hash(deck)
   hand.each do | letter , count |
-    # p letter
-    # p count
-    # p hand
-    # p deck
-    # p play
-    # p pool
     if pool[letter] < count
       return false
     end
@@ -114,7 +70,8 @@ def uses_available_letters?(play, deck)
   return true
 end
 
-
+# Scores the word the player played
+# Factors in bonus points
 def score_word(word)
   scores = {
       A: 1,
@@ -153,8 +110,8 @@ def score_word(word)
   return score_total
 end
 
-
-
+# Produced the highest score in the game
+# Takes into account ties and exceptions (10 letter words)
 def highest_score_from(words)
   # initialize
   greatest_score = score_word(words[0])
@@ -162,14 +119,13 @@ def highest_score_from(words)
 
   #looping through all the words
   words.each do |word|
-
     if score_word(word) > greatest_score
       greatest_score = score_word(word)
       greatest_score_pair = {word: word, score: score_word(word)}
     elsif score_word(word) == greatest_score
       # 1 if the current great score word is 10 letters, keep it
       # 2 elsif the word_score_hash word is 10 letters, that's it
-      # 3 elsif the wordscore_hash word.length < current greatest word.length, that's it
+      # 3 elsif the word_score_hash word.length < current greatest word.length, that's it
       if greatest_score_pair[:word].length == 10
         greatest_score_pair = greatest_score_pair
       elsif word.length == 10
@@ -181,11 +137,3 @@ def highest_score_from(words)
   end
   return greatest_score_pair
 end
-
-
-
-
-
-
-
-
