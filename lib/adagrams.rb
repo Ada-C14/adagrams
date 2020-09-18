@@ -14,32 +14,9 @@ def draw_letters
   drawn_letters = letters_pool.sample(10)
   return drawn_letters
 end
-#############################################
-#wave 2
-# attempt with simpler version 3pm
-# def uses_available_letters?(user_word, letters_in_hand)
-#
-#   user_word_array = user_word.split("")
-#   hand = letters_in_hand.dup
-#
-#   valid_word = nil
-#
-#   user_word_array.each do |letter|
-#     if hand.include?(letter)
-#       valid_word = true
-#       index = hand.index(letter) #returns the index # from hand for that letter
-#       hand.delete_at(index) #deleted only at the one index so that it would not delete all instances of the letter
-#
-#     else
-#       valid_word = false
-#     end
-#
-#   end
-#
-#   return valid_word #returns true or false
-# end
 
-# edits post 11:40 am
+##################################################
+#Wave 2
 def uses_available_letters?(input, letters_in_hand)
   valid_word = nil
   input_as_array = input.upcase.split("")
@@ -132,3 +109,28 @@ def highest_score_from(words)
 
   return winning_word
 end
+
+#############################################
+#wave 2
+# attempt with simpler version 3pm
+# def uses_available_letters?(user_word, letters_in_hand)
+#
+#   user_word_array = user_word.split("")
+#   hand = letters_in_hand.dup
+#
+#   valid_word = nil
+#
+#   user_word_array.each do |letter|
+#     if hand.include?(letter)
+#       valid_word = true
+#       index = hand.index(letter) #returns the index # from hand for that letter
+#       hand.delete_at(index) #deleted only at the one index so that it would not delete all instances of the letter
+#
+#     else
+#       valid_word = false
+#     end
+#
+#   end
+#
+#   return valid_word #returns true or false
+# end
