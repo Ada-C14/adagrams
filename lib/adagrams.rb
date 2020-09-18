@@ -49,7 +49,6 @@ def uses_available_letters?(input, letters_in_hand)
   return true
 end
 
-
 # 3
 def score_word(word)
   letter_array = word.upcase.split(//)
@@ -74,8 +73,8 @@ def score_word(word)
   end
   if letter_array.length > 6
     word_score += 8
-    end
-    return  word_score
+  end
+  return  word_score
 end
 
 #4
@@ -83,43 +82,32 @@ def highest_score_from(words)
   words_and_scores = words.map do |word|
     {word: word, score: score_word(word)}
   end
-  p words_and_scores
 
-  word_value = []
-  words_and_scores.each do |hash|
-    if word_value.empty?
-      word_value << hash
-    elsif hash[:score] > word_value[0][:score]
-      word_value.clear
-      word_value << hash
-    elsif hash[:score] == word_value[0][:score]
-      word_value << hash
+  finalists = []
+  words_and_scores.each do |word_and_score|
+    if finalists.empty?
+      finalists << word_and_score
+    elsif word_and_score[:score] > finalists[0][:score]
+      finalists.clear
+      finalists << word_and_score
+    elsif word_and_score[:score] == finalists[0][:score]
+      finalists << word_and_score
     end
   end
 
-  p "word value", word_value
-
-  if word_value.length == 1
-    return word_value[0]
+  if finalists.length == 1
+    return finalists[0]
   end
-
-  finalists = word_value
 
   min_length = 10
   winner_word = {}
-  finalists.each do |hash|
-    if hash[:word].length == 10
-      return hash
-    elsif hash[:word].length < min_length
-      min_length = hash[:word].length
-      winner_word = hash
+  finalists.each do |word_and_score|
+    if word_and_score[:word].length == 10
+      return word_and_score
+    elsif word_and_score[:word].length < min_length
+      min_length = word_and_score[:word].length
+      winner_word = word_and_score
     end
-    return winner_word
   end
+  return winner_word
 end
-
-
-
-words = ['BBBBBB', 'AAAAAAAAAA']
-
-p highest_score_from(words)
