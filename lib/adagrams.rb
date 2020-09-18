@@ -1,4 +1,5 @@
 # WAVE 1
+
 def draw_letters
   letter_pool = %w(
   A A A A A A A A A
@@ -30,4 +31,21 @@ def draw_letters
 )
   return letter_pool.sample(10)
 
+end
+
+# WAVE 2
+
+def uses_available_letters?(input, letters_in_hand)
+
+  new_letters_in_hand = letters_in_hand.dup
+
+  input.upcase.chars.each do |character|
+    if new_letters_in_hand.include?(character)
+      position = new_letters_in_hand.index(character)
+      new_letters_in_hand.delete_at(position)
+    else
+      return false
+    end
+  end
+  return true
 end
