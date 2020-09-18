@@ -51,6 +51,7 @@ def uses_available_letters?(input, letters_in_hand)
 end
 
 # WAVE 3
+#
 def score_word(word)
 
   score = 0
@@ -83,3 +84,23 @@ def score_word(word)
   return score
 end
 
+
+# WAVE 4
+
+def highest_score_from(words)
+
+  winner = {word: nil, score: 0}
+  words.each do |word|
+
+    if score_word(word) > winner[:score]
+      winner[:word] = word
+      winner[:score] = score_word(word)
+    elsif score_word(word) == winner[:score]
+      if ((winner[:word]).length != 10) && (word.length < (winner[:word]).length || word.length == 10 )
+        winner[:word] = word
+        winner[:score] = score_word(word)
+      end
+    end
+  end
+  return winner
+end
