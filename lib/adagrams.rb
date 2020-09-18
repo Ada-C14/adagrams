@@ -113,8 +113,6 @@ def highest_score_from(words)
   return best_word
 end
 
-input = "a"
-
 def is_in_english_dict?(input)
   dictionary = CSV.read('../assets/dictionary-english.csv', headers: true).map do |word|
    word.to_s.chomp
