@@ -108,14 +108,13 @@ def highest_score_from(words)
       }
     end
   end
-
 end
 
 # Wave 5
 require "csv"
 
 def is_in_english_dict?(input)
-  dictionary = CSV.read('../assets/dictionary-english.csv', headers: true).map { |word| word["Word"] }
+  dictionary = CSV.read('assets/dictionary-english.csv', headers: true).map { |word| word["Word"] }
 
   return dictionary.include?(input.downcase)
 
