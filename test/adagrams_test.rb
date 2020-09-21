@@ -177,11 +177,13 @@ describe 'Adagrams' do
       expect(best_word[:word]).must_equal words.first
       expect(best_word[:score]).must_equal 18
     end
+  end
 
+  describe 'is_in_english_dict?' do
     it 'checks an input string against a list of valid English words' do
 
       word1 = "APPLE"
-      word2 = "PENCIL"
+      word2 = "pencil"
       word3 = "pppppppppp"
       word4 = "PROGRAMMING"
 
