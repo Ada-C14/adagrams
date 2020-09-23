@@ -178,4 +178,17 @@ describe 'Adagrams' do
       expect(best_word[:score]).must_equal 18
     end
   end
+  describe 'is_in_english_dict?' do
+    it 'verifies that input is a word in the English dictionary' do
+      # Arrange
+      word = ["dictionary","characters"] # valid words
+      not_a_word = ["causita","tutear"] # not in english dictionary
+      # Assert
+      valid_words = word.map{|word|is_in_english_dict?(word)}
+      invalid_words = not_a_word.map{|word|is_in_english_dict?(word)}
+      # Act
+      expect(valid_words).must_equal [true, true]
+      expect(invalid_words).must_equal [false, false]
+    end
+  end
 end
