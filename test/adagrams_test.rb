@@ -178,4 +178,38 @@ describe 'Adagrams' do
       expect(best_word[:score]).must_equal 18
     end
   end
+
+  describe 'is_in_english_dict?' do
+    it 'returns true for words less than or equal to 10 letters in the english dictionary' do
+
+      input = "chickens"
+      result = is_in_english_dict?(input)
+      expect(result).must_equal true
+
+      input = "dog"
+      result = is_in_english_dict?(input)
+      expect(result).must_equal true
+
+    end
+
+    it 'returns false for words not in the english dictionary' do
+
+      input = "sdfjs"
+      result = is_in_english_dict?(input)
+      expect(result).must_equal false
+
+      input = "appple"
+      result = is_in_english_dict?(input)
+      expect(result).must_equal false
+
+    end
+
+    it 'returns false for valid words in the dictionary over 10 letters' do
+
+      input = "responsibility"
+      result = is_in_english_dict?(input)
+      expect(result).must_equal false
+
+    end
+end
 end
