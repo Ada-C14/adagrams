@@ -178,4 +178,29 @@ describe 'Adagrams' do
       expect(best_word[:score]).must_equal 18
     end
   end
+
+  describe 'is_in_english_dict? method' do
+    it 'returns true if word exists in csv' do
+      word = 'abdomen'
+
+      expect(is_in_english_dict?(word)).must_equal true
+    end
+
+    it 'returns false if word does not exist in csv' do
+      word = 'zabdomen'
+
+      expect(is_in_english_dict?(word)).must_equal false
+    end
+
+    it 'returns true for last word in csv' do
+      word = 'zwitterion'
+
+      expect(is_in_english_dict?(word)).must_equal true
+    end
+
+    it 'returns true for nil and empty inputs' do
+      expect(is_in_english_dict?(nil)).must_be_nil
+      expect(is_in_english_dict?("")).must_be_nil
+    end
+  end
 end
