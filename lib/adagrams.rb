@@ -107,7 +107,7 @@ def highest_score_from(words)
 
   word_lengths = words.map { |word| word.chars.count }
 
-  if tie.length > 1
+  if tie.length > 1 #check the tie
     word_lengths.each do |length|
       if length == 10
         hash[:word] = words[word_lengths.index(length)]
