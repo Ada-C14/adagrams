@@ -178,4 +178,28 @@ describe 'Adagrams' do
       expect(best_word[:score]).must_equal 18
     end
   end
+
+  describe "is_in_english_dict?" do
+    it "finds real word in dictionary" do
+      good_word = "bamboo"
+      expect(is_in_english_dict?(good_word)).must_equal true
+    end
+
+    it "doesn't find fake word in dictionary" do
+      bad_word = "zybje"
+      expect(is_in_english_dict?(bad_word)).wont_equal true
+
+      empty_word = ""
+      expect(is_in_english_dict?(empty_word)).wont_equal true
+
+      too_long_word = "incongruous"
+      expect(is_in_english_dict?(too_long_word)).wont_equal true
+    end
+  end
+
 end
+
+
+
+
+
