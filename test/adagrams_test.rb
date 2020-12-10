@@ -74,7 +74,7 @@ describe 'Adagrams' do
       expect(score_word("WHIMSY")).must_equal 17
     end
 
-    it 'returns a score regardless of input case' do
+    it ' regardless of input case' do
       expect(score_word("a")).must_equal 1
       expect(score_word("dog")).must_equal 5
       expect(score_word("wHiMsY")).must_equal 17
